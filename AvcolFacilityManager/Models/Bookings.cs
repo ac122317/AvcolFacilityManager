@@ -10,19 +10,19 @@ namespace AvcolFacilityManager.Models
 
         [ForeignKey("User"), Required]
         public int UserId { get; set; }
-        public User user { get; set; }
+        public User User { get; set; }
 
         [ForeignKey("Facility"), Required]
         public int FacilityId { get; set; }
         public Facility Facility { get; set; }
 
-        [Required]
-        public DateOnly Date { get; set; }
+        [Required, DataType(DataType.Date)]
+        public DateTime Date { get; set; }
 
-        [Required]
-        public TimeOnly StartTime { get; set; }
+        [Required, DataType(DataType.Time)]
+        public DateTime StartTime { get; set; }
 
-        [Required]
-        public TimeOnly EndTime { get; set; }
+        [Required, DataType(DataType.Time)]
+        public DateTime EndTime { get; set; }
     }
 }

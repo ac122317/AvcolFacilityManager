@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using AvcolFacilityManager.Models;
 
 namespace AvcolFacilityManager.Areas.Identity.Data;
 
@@ -19,4 +20,12 @@ public class AvcolFacilityManagerDbContext : IdentityDbContext<AppUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+public DbSet<AvcolFacilityManager.Models.Facility> Facility { get; set; } = default!;
+
+public DbSet<AvcolFacilityManager.Models.Bookings> Bookings { get; set; } = default!;
+
+public DbSet<AvcolFacilityManager.Models.Reviews> Reviews { get; set; } = default!;
+
+public DbSet<AvcolFacilityManager.Models.User> User { get; set; } = default!;
 }
