@@ -8,10 +8,10 @@ namespace AvcolFacilityManager.Models
 
         public int FacilityId { get; set; }
 
-        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters, no special characters or spaces.")]
+        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z0-9 ]+$", ErrorMessage = "First name must only contain letters, number or spaces.")]
         public string FacilityName { get; set; }
 
-        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters, no special characters or spaces.")]
+        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z0-9 ]+$", ErrorMessage = "First name must only contain letters, numbers or spaces.")]
         public string FacilityType { get; set; }
 
         [Required, Range(1, 1000)]

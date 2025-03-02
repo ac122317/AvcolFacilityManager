@@ -22,7 +22,7 @@ namespace AvcolFacilityManager.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
-            var avcolFacilityManagerDbContext = _context.Reviews.Include(r => r.User);
+            var avcolFacilityManagerDbContext = _context.Reviews.Include(r => r.Booking);
             return View(await avcolFacilityManagerDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace AvcolFacilityManager.Controllers
             }
 
             var reviews = await _context.Reviews
-                .Include(r => r.User)
+                .Include(r => r.Booking)
                 .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (reviews == null)
             {
@@ -48,7 +48,7 @@ namespace AvcolFacilityManager.Controllers
         // GET: Reviews/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "UserId", "Email");
+            ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingId");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace AvcolFacilityManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewId,UserId,Rating,Comment,DateCreated")] Reviews reviews)
+        public async Task<IActionResult> Create([Bind("ReviewId,BookingId,Rating,Comment,DateCreated")] Reviews reviews)
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace AvcolFacilityManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "UserId", "Email", reviews.UserId);
+            ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingId", reviews.BookingId);
             return View(reviews);
         }
 
@@ -82,7 +82,7 @@ namespace AvcolFacilityManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "UserId", "Email", reviews.UserId);
+            ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingId", reviews.BookingId);
             return View(reviews);
         }
 
@@ -91,7 +91,7 @@ namespace AvcolFacilityManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,UserId,Rating,Comment,DateCreated")] Reviews reviews)
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,BookingId,Rating,Comment,DateCreated")] Reviews reviews)
         {
             if (id != reviews.ReviewId)
             {
@@ -118,7 +118,7 @@ namespace AvcolFacilityManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "UserId", "Email", reviews.UserId);
+            ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingId", reviews.BookingId);
             return View(reviews);
         }
 
@@ -131,7 +131,7 @@ namespace AvcolFacilityManager.Controllers
             }
 
             var reviews = await _context.Reviews
-                .Include(r => r.User)
+                .Include(r => r.Booking)
                 .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (reviews == null)
             {

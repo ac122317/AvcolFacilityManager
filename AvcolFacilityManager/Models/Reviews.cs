@@ -10,9 +10,9 @@ namespace AvcolFacilityManager.Models
 
         public int ReviewId { get; set; }
 
-        [ForeignKey("User"), Required]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        [ForeignKey("Bookings"), Required]
+        public int BookingId { get; set; }
+        public Bookings Booking { get; set; }
 
         [Required, Range(1, 5)]
         public int Rating { get; set; }
@@ -21,6 +21,6 @@ namespace AvcolFacilityManager.Models
         public string Comment { get; set; }
 
         [Required]
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
     }
 }
