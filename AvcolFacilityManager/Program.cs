@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AvcolFacilityManager.Areas.Identity.Data;
+using AvcolFacilityManager.DummyData;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AvcolFacilityManagerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AvcolFacilityManagerDbContextConnection' not found.");
 
@@ -33,4 +35,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
+DbStartup.SeedData(app);
 app.Run();
