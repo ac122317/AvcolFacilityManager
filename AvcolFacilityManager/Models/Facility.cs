@@ -14,7 +14,7 @@ namespace AvcolFacilityManager.Models
         [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z0-9 ]+$", ErrorMessage = "First name must only contain letters, numbers or spaces.")]
         public string FacilityType { get; set; }
 
-        [Required, Range(1, 1000)]
+        [Required, Range(1, 3000)]
         public int Capacity { get; set; }
 
         public List<Bookings> Bookings { get; set; }
