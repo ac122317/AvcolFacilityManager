@@ -33,7 +33,20 @@ namespace AvcolFacilityManager.DummyData
                 new User { LastName = "Anderson", FirstName = "Olivia", Email = "OliviaAnderson@gmail.com", Phone = "+64215678901"},
                 new User { LastName = "Thomas", FirstName = "Noah", Email = "NoahThomas@gmail.com", Phone = "+64216789012"},
                 new User { LastName = "Harris", FirstName = "Sophia", Email = "SophiaHarris@gmail.com", Phone = "+64217890123"},
-                new User { LastName = "Martin", FirstName = "Lucas", Email = "LucasMartin@gmail.com", Phone = "+64218901234"}
+                new User { LastName = "Martin", FirstName = "Lucas", Email = "LucasMartin@gmail.com", Phone = "+64218901234"},
+                new User { LastName = "Johnson", FirstName = "Mia", Email = "MiaJohnson@gmail.com", Phone = "+642212345678" },
+                new User { LastName = "Garcia", FirstName = "Ethan", Email = "EthanGarcia@gmail.com", Phone = "+642232456789" },
+                new User { LastName = "Martinez", FirstName = "Charlotte", Email = "CharlotteMartinez@gmail.com", Phone = "+642452678901" },
+                new User { LastName = "Roberts", FirstName = "Jack", Email = "JackRoberts@gmail.com", Phone = "+642532456789" },
+                new User { LastName = "Walker", FirstName = "Amelia", Email = "AmeliaWalker@gmail.com", Phone = "+642672890123" },
+                new User { LastName = "Lopez", FirstName = "William", Email = "WilliamLopez@gmail.com", Phone = "+642712890234" },
+                new User { LastName = "Gonzalez", FirstName = "Ava", Email = "AvaGonzalez@gmail.com", Phone = "+642722890345" },
+                new User { LastName = "Young", FirstName = "James", Email = "JamesYoung@gmail.com", Phone = "+642732890456" },
+                new User { LastName = "King", FirstName = "Grace", Email = "GraceKing@gmail.com", Phone = "+642742890567" },
+                new User { LastName = "Scott", FirstName = "Henry", Email = "HenryScott@gmail.com", Phone = "+642752890678" },
+                new User { LastName = "Adams", FirstName = "Zoe", Email = "ZoeAdams@gmail.com", Phone = "+642762890789" },
+                new User { LastName = "Baker", FirstName = "Owen", Email = "OwenBaker@gmail.com", Phone = "+642772890890" },
+                new User { LastName = "Nelson", FirstName = "Isabella", Email = "IsabellaNelson@gmail.com", Phone = "+642782890901" }
 
                 };
                 Context.User.AddRange(User);
@@ -54,7 +67,7 @@ namespace AvcolFacilityManager.DummyData
                 new Facility { FacilityName = "Netball Courts", FacilityType = "Sports", Capacity = 35 },
                 new Facility { FacilityName = "Volleyball nets", FacilityType = "Sports", Capacity = 24 },
 
-                new Facility { FacilityName = "Performing Arts Centre", FacilityType = "Arts", Capacity = 700 },
+                new Facility { FacilityName = "PAC", FacilityType = "Arts", Capacity = 700 },
                 new Facility { FacilityName = "Drama Room 1", FacilityType = "Arts", Capacity = 35 },
                 new Facility { FacilityName = "Drama Room 2", FacilityType = "Arts", Capacity = 35 },
                 new Facility { FacilityName = "Drama Room 3", FacilityType = "Arts", Capacity = 35 },
@@ -71,6 +84,12 @@ namespace AvcolFacilityManager.DummyData
                 {
                 new Bookings { UserId = 1, FacilityId = 1, Date = new DateTime(2025, 9, 4), StartTime = new DateTime(2025, 9, 4, 9, 15, 0), EndTime = new DateTime(2025, 9, 4, 10, 30, 0)},
                 new Bookings { UserId = 2, FacilityId = 2, Date = new DateTime(2025, 10, 4), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { UserId = 3, FacilityId = 4, Date = new DateTime(2025, 11, 4), StartTime = new DateTime(2025, 9, 4, 10, 45, 0), EndTime = new DateTime(2025, 9, 4, 11, 30, 0)},
+                new Bookings { UserId = 4, FacilityId = 4, Date = new DateTime(2025, 11, 5), StartTime = new DateTime(2025, 10, 4, 10, 0, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { UserId = 5, FacilityId = 5, Date = new DateTime(2025, 11, 6), StartTime = new DateTime(2025, 9, 4, 11, 45, 0), EndTime = new DateTime(2025, 9, 4, 12, 30, 0)},
+                new Bookings { UserId = 6, FacilityId = 6, Date = new DateTime(2025, 10, 7), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { UserId = 7, FacilityId = 7, Date = new DateTime(2025, 10, 10), StartTime = new DateTime(2025, 9, 4, 12, 15, 0), EndTime = new DateTime(2025, 9, 4, 13, 0, 0)},
+                new Bookings { UserId = 8, FacilityId = 8, Date = new DateTime(2025, 9, 10), StartTime = new DateTime(2025, 10, 4, 13, 30, 0), EndTime = new DateTime(2025, 10, 4, 14, 30, 0)},
 
                 };
                 Context.Bookings.AddRange(Bookings);
@@ -79,7 +98,10 @@ namespace AvcolFacilityManager.DummyData
                 var Reviews = new Reviews[]
                 {
                 new Reviews { BookingId = 1, Rating = 5, Comment = "Great experience with the facility, will book again!", DateCreated = new DateTime(2025, 4, 3, 11, 0, 0)},
-                new Reviews { BookingId = 2, Rating = 5, Comment = "Very satisfied!", DateCreated = new DateTime(2025, 4, 3, 11, 0, 0)},
+                new Reviews { BookingId = 2, Rating = 5, Comment = "Very satisfied!", DateCreated = new DateTime(2025, 3, 3, 11, 0, 0)},
+                new Reviews { BookingId = 3, Rating = 5, Comment = "Had a very enjoyable time, the turf was spacious, just what I wanted!", DateCreated = new DateTime(2025, 6, 3, 11, 0, 0)},
+                new Reviews { BookingId = 4, Rating = 5, Comment = "Lovely experience with the squash courts.", DateCreated = new DateTime(2025, 5, 3, 11, 0, 0)},
+                new Reviews { BookingId = 7, Rating = 5, Comment = "Excellent.", DateCreated = new DateTime(2025, 5, 3, 11, 0, 0)},
                 };
                 Context.Reviews.AddRange(Reviews);
                 Context.SaveChanges();
