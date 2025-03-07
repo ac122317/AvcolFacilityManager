@@ -21,6 +21,7 @@ namespace AvcolFacilityManager.Models
         public string? Comment { get; set; }
 
         [Required]
+        [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; } = DateTime.Now;
     }
 }
