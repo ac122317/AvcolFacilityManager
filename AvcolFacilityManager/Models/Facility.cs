@@ -16,6 +16,7 @@ namespace AvcolFacilityManager.Models
         [Display(Name = "Facility Type")]
         public string FacilityType { get; set; }
 
+        //Capacity field is allocated the range data annotation so that the field only accepts inputs between 1 and 3000 characters.
         [Required, Range(1, 3000)]
         public int Capacity { get; set; }
 

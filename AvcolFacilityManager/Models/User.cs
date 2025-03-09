@@ -26,10 +26,7 @@ namespace AvcolFacilityManager.Models
         [Required, RegularExpression(@"^\+?\d{1,3}[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$", ErrorMessage = "Invalid phone number format (please include +64)")]
         public string Phone { get; set; }
 
-        //List representing a one to many relationship - one user can make many reviews.
-        public List<Reviews> Reviews { get; set; }
-
-        //List representing a one to many relationship - one user can make many reviews.
+        //List representing a one to many relationship - one user can make many bookings.
         public List<Bookings> Bookings { get; set; }
     }
 }
