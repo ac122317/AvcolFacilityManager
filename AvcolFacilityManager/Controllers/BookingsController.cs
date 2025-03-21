@@ -22,7 +22,7 @@ namespace AvcolFacilityManager.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var avcolFacilityManagerDbContext = _context.Bookings.Include(b => b.Facility).Include(b => b.User);
+            var avcolFacilityManagerDbContext = _context.Bookings.Include(b => b.Facility).Include(b => b.AppUser);
             return View(await avcolFacilityManagerDbContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace AvcolFacilityManager.Controllers
 
             var bookings = await _context.Bookings
                 .Include(b => b.Facility)
-                .Include(b => b.User)
+                .Include(b => b.AppUser)
                 .FirstOrDefaultAsync(m => m.BookingId == id);
             if (bookings == null)
             {
@@ -50,7 +50,7 @@ namespace AvcolFacilityManager.Controllers
         public IActionResult Create()
         {
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName");
-            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email");
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace AvcolFacilityManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingId,UserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
+        public async Task<IActionResult> Create([Bind("BookingId,AppUserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
         {
             if (!ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace AvcolFacilityManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
-            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", bookings.UserId);
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email", bookings.AppUserId);
             return View(bookings);
         }
 
@@ -86,7 +86,7 @@ namespace AvcolFacilityManager.Controllers
                 return NotFound();
             }
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
-            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", bookings.UserId);
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email", bookings.AppUserId);
             return View(bookings);
         }
 
@@ -95,7 +95,7 @@ namespace AvcolFacilityManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingId,UserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingId,AppUserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
         {
             if (id != bookings.BookingId)
             {
@@ -123,7 +123,7 @@ namespace AvcolFacilityManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
-            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Email", bookings.UserId);
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email", bookings.AppUserId);
             return View(bookings);
         }
 
@@ -137,7 +137,7 @@ namespace AvcolFacilityManager.Controllers
 
             var bookings = await _context.Bookings
                 .Include(b => b.Facility)
-                .Include(b => b.User)
+                .Include(b => b.AppUser)
                 .FirstOrDefaultAsync(m => m.BookingId == id);
             if (bookings == null)
             {

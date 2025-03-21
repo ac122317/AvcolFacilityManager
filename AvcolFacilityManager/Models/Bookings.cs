@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AvcolFacilityManager.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AvcolFacilityManager.Models
@@ -8,9 +9,9 @@ namespace AvcolFacilityManager.Models
         [Key]
         public int BookingId { get; set; }
 
-        [ForeignKey("User"), Required]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        [ForeignKey("AppUser"), Required]
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
 
         [ForeignKey("Facility"), Required]
         public int FacilityId { get; set; }

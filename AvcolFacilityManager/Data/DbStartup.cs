@@ -17,39 +17,39 @@ namespace AvcolFacilityManager.DummyData
 
                 //The if statement ensures that if there is any existing data amongst any of the models, the method will return to prevent the data being added again (thus being duplicated).
 
-                if (Context.User.Any() || Context.Facility.Any() || Context.Bookings.Any() || Context.Reviews.Any())
+                if (Context.AppUser.Any() || Context.Facility.Any() || Context.Bookings.Any() || Context.Reviews.Any())
                 {
                     return;
                 }
 
-                var User = new User []
+                var AppUser = new AppUser []
                 {
-                new User { LastName = "Doe", FirstName = "John", Email = "JohnDoe@gmail.com", Phone = "+640278321892"},
-                new User { LastName = "Doe", FirstName = "Jane", Email = "JaneDoe@gmail.com", Phone = "+640229122832"},
-                new User { LastName = "Smith", FirstName = "Alice", Email = "AliceSmith@gmail.com", Phone = "+64211234567"},
-                new User { LastName = "Brown", FirstName = "Bob", Email = "BobBrown@gmail.com", Phone = "+64212345678"},
-                new User { LastName = "Taylor", FirstName = "Emma", Email = "EmmaTaylor@gmail.com", Phone = "+64213456789"},
-                new User { LastName = "Wilson", FirstName = "Liam", Email = "LiamWilson@gmail.com", Phone = "+64214567890"},
-                new User { LastName = "Anderson", FirstName = "Olivia", Email = "OliviaAnderson@gmail.com", Phone = "+64215678901"},
-                new User { LastName = "Thomas", FirstName = "Noah", Email = "NoahThomas@gmail.com", Phone = "+64216789012"},
-                new User { LastName = "Harris", FirstName = "Sophia", Email = "SophiaHarris@gmail.com", Phone = "+64217890123"},
-                new User { LastName = "Martin", FirstName = "Lucas", Email = "LucasMartin@gmail.com", Phone = "+64218901234"},
-                new User { LastName = "Johnson", FirstName = "Mia", Email = "MiaJohnson@gmail.com", Phone = "+642212345678" },
-                new User { LastName = "Garcia", FirstName = "Ethan", Email = "EthanGarcia@gmail.com", Phone = "+642232456789" },
-                new User { LastName = "Martinez", FirstName = "Charlotte", Email = "CharlotteMartinez@gmail.com", Phone = "+642452678901" },
-                new User { LastName = "Roberts", FirstName = "Jack", Email = "JackRoberts@gmail.com", Phone = "+642532456789" },
-                new User { LastName = "Walker", FirstName = "Amelia", Email = "AmeliaWalker@gmail.com", Phone = "+642672890123" },
-                new User { LastName = "Lopez", FirstName = "William", Email = "WilliamLopez@gmail.com", Phone = "+642712890234" },
-                new User { LastName = "Gonzalez", FirstName = "Ava", Email = "AvaGonzalez@gmail.com", Phone = "+642722890345" },
-                new User { LastName = "Young", FirstName = "James", Email = "JamesYoung@gmail.com", Phone = "+642732890456" },
-                new User { LastName = "King", FirstName = "Grace", Email = "GraceKing@gmail.com", Phone = "+642742890567" },
-                new User { LastName = "Scott", FirstName = "Henry", Email = "HenryScott@gmail.com", Phone = "+642752890678" },
-                new User { LastName = "Adams", FirstName = "Zoe", Email = "ZoeAdams@gmail.com", Phone = "+642762890789" },
-                new User { LastName = "Baker", FirstName = "Owen", Email = "OwenBaker@gmail.com", Phone = "+642772890890" },
-                new User { LastName = "Nelson", FirstName = "Isabella", Email = "IsabellaNelson@gmail.com", Phone = "+642782890901" }
+                new AppUser { LastName = "Doe", FirstName = "John", Email = "JohnDoe@gmail.com", Phone = "+640278321892"},
+                new AppUser { LastName = "Doe", FirstName = "Jane", Email = "JaneDoe@gmail.com", Phone = "+640229122832"},
+                new AppUser { LastName = "Smith", FirstName = "Alice", Email = "AliceSmith@gmail.com", Phone = "+64211234567"},
+                new AppUser { LastName = "Brown", FirstName = "Bob", Email = "BobBrown@gmail.com", Phone = "+64212345678"},
+                new AppUser { LastName = "Taylor", FirstName = "Emma", Email = "EmmaTaylor@gmail.com", Phone = "+64213456789"},
+                new AppUser { LastName = "Wilson", FirstName = "Liam", Email = "LiamWilson@gmail.com", Phone = "+64214567890"},
+                new AppUser { LastName = "Anderson", FirstName = "Olivia", Email = "OliviaAnderson@gmail.com", Phone = "+64215678901"},
+                new AppUser { LastName = "Thomas", FirstName = "Noah", Email = "NoahThomas@gmail.com", Phone = "+64216789012"},
+                new AppUser { LastName = "Harris", FirstName = "Sophia", Email = "SophiaHarris@gmail.com", Phone = "+64217890123"},
+                new AppUser { LastName = "Martin", FirstName = "Lucas", Email = "LucasMartin@gmail.com", Phone = "+64218901234"},
+                new AppUser { LastName = "Johnson", FirstName = "Mia", Email = "MiaJohnson@gmail.com", Phone = "+642212345678" },
+                new AppUser { LastName = "Garcia", FirstName = "Ethan", Email = "EthanGarcia@gmail.com", Phone = "+642232456789" },
+                new AppUser { LastName = "Martinez", FirstName = "Charlotte", Email = "CharlotteMartinez@gmail.com", Phone = "+642452678901" },
+                new AppUser { LastName = "Roberts", FirstName = "Jack", Email = "JackRoberts@gmail.com", Phone = "+642532456789" },
+                new AppUser { LastName = "Walker", FirstName = "Amelia", Email = "AmeliaWalker@gmail.com", Phone = "+642672890123" },
+                new AppUser { LastName = "Lopez", FirstName = "William", Email = "WilliamLopez@gmail.com", Phone = "+642712890234" },
+                new AppUser { LastName = "Gonzalez", FirstName = "Ava", Email = "AvaGonzalez@gmail.com", Phone = "+642722890345" },
+                new AppUser { LastName = "Young", FirstName = "James", Email = "JamesYoung@gmail.com", Phone = "+642732890456" },
+                new AppUser { LastName = "King", FirstName = "Grace", Email = "GraceKing@gmail.com", Phone = "+642742890567" },
+                new AppUser { LastName = "Scott", FirstName = "Henry", Email = "HenryScott@gmail.com", Phone = "+642752890678" },
+                new AppUser { LastName = "Adams", FirstName = "Zoe", Email = "ZoeAdams@gmail.com", Phone = "+642762890789" },
+                new AppUser { LastName = "Baker", FirstName = "Owen", Email = "OwenBaker@gmail.com", Phone = "+642772890890" },
+                new AppUser { LastName = "Nelson", FirstName = "Isabella", Email = "IsabellaNelson@gmail.com", Phone = "+642782890901" }
 
                 };
-                Context.User.AddRange(User);
+                Context.AppUser.AddRange(AppUser);
                 Context.SaveChanges();
 
                 var Facility = new Facility[]
@@ -82,14 +82,14 @@ namespace AvcolFacilityManager.DummyData
 
                 var Bookings = new Bookings[]
                 {
-                new Bookings { UserId = 1, FacilityId = 1, Date = new DateTime(2025, 9, 4), StartTime = new DateTime(2025, 9, 4, 9, 15, 0), EndTime = new DateTime(2025, 9, 4, 10, 30, 0)},
-                new Bookings { UserId = 2, FacilityId = 2, Date = new DateTime(2025, 10, 4), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
-                new Bookings { UserId = 3, FacilityId = 4, Date = new DateTime(2025, 11, 4), StartTime = new DateTime(2025, 9, 4, 10, 45, 0), EndTime = new DateTime(2025, 9, 4, 11, 30, 0)},
-                new Bookings { UserId = 4, FacilityId = 4, Date = new DateTime(2025, 11, 5), StartTime = new DateTime(2025, 10, 4, 10, 0, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
-                new Bookings { UserId = 5, FacilityId = 5, Date = new DateTime(2025, 11, 6), StartTime = new DateTime(2025, 9, 4, 11, 45, 0), EndTime = new DateTime(2025, 9, 4, 12, 30, 0)},
-                new Bookings { UserId = 6, FacilityId = 6, Date = new DateTime(2025, 10, 7), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
-                new Bookings { UserId = 7, FacilityId = 7, Date = new DateTime(2025, 10, 10), StartTime = new DateTime(2025, 9, 4, 12, 15, 0), EndTime = new DateTime(2025, 9, 4, 13, 0, 0)},
-                new Bookings { UserId = 8, FacilityId = 8, Date = new DateTime(2025, 9, 10), StartTime = new DateTime(2025, 10, 4, 13, 30, 0), EndTime = new DateTime(2025, 10, 4, 14, 30, 0)},
+                new Bookings { FacilityId = 1, Date = new DateTime(2025, 9, 4), StartTime = new DateTime(2025, 9, 4, 9, 15, 0), EndTime = new DateTime(2025, 9, 4, 10, 30, 0)},
+                new Bookings { FacilityId = 2, Date = new DateTime(2025, 10, 4), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { FacilityId = 4, Date = new DateTime(2025, 11, 4), StartTime = new DateTime(2025, 9, 4, 10, 45, 0), EndTime = new DateTime(2025, 9, 4, 11, 30, 0)},
+                new Bookings { FacilityId = 4, Date = new DateTime(2025, 11, 5), StartTime = new DateTime(2025, 10, 4, 10, 0, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { FacilityId = 5, Date = new DateTime(2025, 11, 6), StartTime = new DateTime(2025, 9, 4, 11, 45, 0), EndTime = new DateTime(2025, 9, 4, 12, 30, 0)},
+                new Bookings {  FacilityId = 6, Date = new DateTime(2025, 10, 7), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings {  FacilityId = 7, Date = new DateTime(2025, 10, 10), StartTime = new DateTime(2025, 9, 4, 12, 15, 0), EndTime = new DateTime(2025, 9, 4, 13, 0, 0)},
+                new Bookings {FacilityId = 8, Date = new DateTime(2025, 9, 10), StartTime = new DateTime(2025, 10, 4, 13, 30, 0), EndTime = new DateTime(2025, 10, 4, 14, 30, 0)},
 
                 };
                 Context.Bookings.AddRange(Bookings);

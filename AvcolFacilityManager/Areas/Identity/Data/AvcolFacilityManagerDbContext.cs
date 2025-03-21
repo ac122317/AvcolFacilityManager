@@ -27,5 +27,5 @@ public DbSet<AvcolFacilityManager.Models.Bookings> Bookings { get; set; } = defa
 
 public DbSet<AvcolFacilityManager.Models.Reviews> Reviews { get; set; } = default!;
 
-public DbSet<AvcolFacilityManager.Models.User> User { get; set; } = default!;
+public DbSet<AvcolFacilityManager.Areas.Identity.Data.AppUser> AppUser { get; set; } = default!;
 }
