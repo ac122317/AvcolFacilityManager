@@ -82,14 +82,14 @@ namespace AvcolFacilityManager.DummyData
 
                 var Bookings = new Bookings[]
                 {
-                new Bookings { FacilityId = 1, Date = new DateTime(2025, 9, 4), StartTime = new DateTime(2025, 9, 4, 9, 15, 0), EndTime = new DateTime(2025, 9, 4, 10, 30, 0)},
-                new Bookings { FacilityId = 2, Date = new DateTime(2025, 10, 4), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
-                new Bookings { FacilityId = 4, Date = new DateTime(2025, 11, 4), StartTime = new DateTime(2025, 9, 4, 10, 45, 0), EndTime = new DateTime(2025, 9, 4, 11, 30, 0)},
-                new Bookings { FacilityId = 4, Date = new DateTime(2025, 11, 5), StartTime = new DateTime(2025, 10, 4, 10, 0, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
-                new Bookings { FacilityId = 5, Date = new DateTime(2025, 11, 6), StartTime = new DateTime(2025, 9, 4, 11, 45, 0), EndTime = new DateTime(2025, 9, 4, 12, 30, 0)},
-                new Bookings {  FacilityId = 6, Date = new DateTime(2025, 10, 7), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
-                new Bookings {  FacilityId = 7, Date = new DateTime(2025, 10, 10), StartTime = new DateTime(2025, 9, 4, 12, 15, 0), EndTime = new DateTime(2025, 9, 4, 13, 0, 0)},
-                new Bookings {FacilityId = 8, Date = new DateTime(2025, 9, 10), StartTime = new DateTime(2025, 10, 4, 13, 30, 0), EndTime = new DateTime(2025, 10, 4, 14, 30, 0)},
+                new Bookings { AppUserId = AppUser[0].Id, FacilityId = 1, Date = new DateTime(2025, 9, 4), StartTime = new DateTime(2025, 9, 4, 9, 15, 0), EndTime = new DateTime(2025, 9, 4, 10, 30, 0)},
+                new Bookings { AppUserId = AppUser[1].Id, FacilityId = 2, Date = new DateTime(2025, 10, 4), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { AppUserId = AppUser[2].Id, FacilityId = 4, Date = new DateTime(2025, 11, 4), StartTime = new DateTime(2025, 9, 4, 10, 45, 0), EndTime = new DateTime(2025, 9, 4, 11, 30, 0)},
+                new Bookings { AppUserId = AppUser[3].Id, FacilityId = 4, Date = new DateTime(2025, 11, 5), StartTime = new DateTime(2025, 10, 4, 10, 0, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { AppUserId = AppUser[4].Id, FacilityId = 5, Date = new DateTime(2025, 11, 6), StartTime = new DateTime(2025, 9, 4, 11, 45, 0), EndTime = new DateTime(2025, 9, 4, 12, 30, 0)},
+                new Bookings { AppUserId = AppUser[5].Id, FacilityId = 6, Date = new DateTime(2025, 10, 7), StartTime = new DateTime(2025, 10, 4, 9, 15, 0), EndTime = new DateTime(2025, 10, 4, 10, 30, 0)},
+                new Bookings { AppUserId = AppUser[6].Id,FacilityId = 7, Date = new DateTime(2025, 10, 10), StartTime = new DateTime(2025, 9, 4, 12, 15, 0), EndTime = new DateTime(2025, 9, 4, 13, 0, 0)},
+                new Bookings { AppUserId = AppUser[7].Id, FacilityId = 8, Date = new DateTime(2025, 9, 10), StartTime = new DateTime(2025, 10, 4, 13, 30, 0), EndTime = new DateTime(2025, 10, 4, 14, 30, 0)},
 
                 };
                 Context.Bookings.AddRange(Bookings);

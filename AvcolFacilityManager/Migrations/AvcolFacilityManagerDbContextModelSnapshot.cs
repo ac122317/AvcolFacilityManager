@@ -131,7 +131,7 @@ namespace AvcolFacilityManager.Migrations
 
                     b.HasIndex("FacilityId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("AvcolFacilityManager.Models.Facility", b =>
@@ -157,7 +157,7 @@ namespace AvcolFacilityManager.Migrations
 
                     b.HasKey("FacilityId");
 
-                    b.ToTable("Facility");
+                    b.ToTable("Facility", (string)null);
                 });
 
             modelBuilder.Entity("AvcolFacilityManager.Models.Reviews", b =>
@@ -185,7 +185,7 @@ namespace AvcolFacilityManager.Migrations
 
                     b.HasIndex("BookingId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
