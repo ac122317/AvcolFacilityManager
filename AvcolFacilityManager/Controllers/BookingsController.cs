@@ -22,7 +22,7 @@ namespace AvcolFacilityManager.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var avcolFacilityManagerDbContext = _context.Bookings.Include(b => b.Facility).Include(b => b.AppUser);
+            var avcolFacilityManagerDbContext = _context.Bookings.Include(b => b.AppUser).Include(b => b.Facility);
             return View(await avcolFacilityManagerDbContext.ToListAsync());
         }
 
@@ -35,8 +35,8 @@ namespace AvcolFacilityManager.Controllers
             }
 
             var bookings = await _context.Bookings
-                .Include(b => b.Facility)
                 .Include(b => b.AppUser)
+                .Include(b => b.Facility)
                 .FirstOrDefaultAsync(m => m.BookingId == id);
             if (bookings == null)
             {
@@ -49,8 +49,8 @@ namespace AvcolFacilityManager.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName");
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName");
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email");
             return View();
         }
 
@@ -67,8 +67,8 @@ namespace AvcolFacilityManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName", bookings.AppUserId);
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email", bookings.AppUserId);
             return View(bookings);
         }
 
@@ -85,8 +85,8 @@ namespace AvcolFacilityManager.Controllers
             {
                 return NotFound();
             }
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName", bookings.AppUserId);
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email", bookings.AppUserId);
             return View(bookings);
         }
 
@@ -122,8 +122,8 @@ namespace AvcolFacilityManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName", bookings.AppUserId);
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "AppUserId", "Email", bookings.AppUserId);
             return View(bookings);
         }
 
@@ -136,8 +136,8 @@ namespace AvcolFacilityManager.Controllers
             }
 
             var bookings = await _context.Bookings
-                .Include(b => b.Facility)
                 .Include(b => b.AppUser)
+                .Include(b => b.Facility)
                 .FirstOrDefaultAsync(m => m.BookingId == id);
             if (bookings == null)
             {

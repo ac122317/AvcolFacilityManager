@@ -10,6 +10,7 @@ namespace AvcolFacilityManager.Models
         public int BookingId { get; set; }
 
         [ForeignKey("AppUser"), Required]
+        [Display(Name = "App User")]
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
 
