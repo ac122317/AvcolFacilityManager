@@ -22,7 +22,7 @@ namespace AvcolFacilityManager.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
-            var avcolFacilityManagerDbContext = _context.Reviews.Include(r => r.Booking);
+            var avcolFacilityManagerDbContext = _context.Reviews.Include(r => r.Booking).ThenInclude(b => b.Facility);
             return View(await avcolFacilityManagerDbContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace AvcolFacilityManager.Controllers
 
             var reviews = await _context.Reviews
                 .Include(r => r.Booking)
+                .ThenInclude(b => b.Facility)
                 .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (reviews == null)
             {
