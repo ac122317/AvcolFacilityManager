@@ -1,0 +1,1 @@
+﻿SELECT * FROM Facility WHERE LEN(FacilityName) > 10;

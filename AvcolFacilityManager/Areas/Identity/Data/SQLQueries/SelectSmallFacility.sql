@@ -1,0 +1,1 @@
+﻿SELECT * FROM Facility WHERE Capacity BETWEEN 5 and 50

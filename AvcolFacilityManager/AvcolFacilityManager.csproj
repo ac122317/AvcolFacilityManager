@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SQLQueries\" />
+    <Folder Include="Areas\Identity\Data\SQLQueries\" />
   </ItemGroup>
 
 </Project>
