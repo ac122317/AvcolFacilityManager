@@ -1,0 +1,7 @@
+﻿INSERT INTO AspNetUsers (Id, FirstName, LastName, Phone, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount)  
+VALUES 
+(NEWID(), 'John', 'Doe', '+64211234567', 'johndoe', 'JOHNDOE', 'johndoe@example.com', 'JOHNDOE@EXAMPLE.COM', 1, 'hashed-password-here', 'security-stamp-here', 'concurrency-stamp-here', '+64211234567', 1, 0, NULL, 1, 0),
+(NEWID(), 'Jane', 'Smith', '+64219876543', 'janesmith', 'JANESMITH', 'janesmith@example.com', 'JANESMITH@EXAMPLE.COM', 1, 'hashed-password-here', 'security-stamp-here', 'concurrency-stamp-here', '+64219876543', 1, 0, NULL, 1, 0),
+(NEWID(), 'Michael', 'Brown', '+64215556677', 'michaelbrown', 'MICHAELBROWN', 'michaelbrown@example.com', 'MICHAELBROWN@EXAMPLE.COM', 1, 'hashed-password-here', 'security-stamp-here', 'concurrency-stamp-here', '+64215556677', 1, 0, NULL, 1, 0),
+(NEWID(), 'Emily', 'Clark', '+64213334455', 'emilyclark', 'EMILYCLARK', 'emilyclark@example.com', 'EMILYLARK@EXAMPLE.COM', 1, 'hashed-password-here', 'security-stamp-here', 'concurrency-stamp-here', '+64213334455', 1, 0, NULL, 1, 0),
+(NEWID(), 'Daniel', 'Wilson', '+64216677889', 'danielwilson', 'DANIELWILSON', 'danielwilson@example.com', 'DANIELWILSON@EXAMPLE.COM', 1, 'hashed-password-here', 'security-stamp-here', 'concurrency-stamp-here', '+64216677889', 1, 0, NULL, 1, 0);
