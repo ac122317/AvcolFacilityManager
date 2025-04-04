@@ -58,10 +58,12 @@ namespace AvcolFacilityManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewId,BookingId,Rating,Comment,DateCreated")] Reviews reviews)
+        public async Task<IActionResult> Create([Bind("ReviewId,BookingId,Rating,Comment")] Reviews reviews)
         {
             if (!ModelState.IsValid)
             {
+                reviews.DateCreated = DateTime.Now;
+
                 _context.Add(reviews);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -92,7 +94,7 @@ namespace AvcolFacilityManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,BookingId,Rating,Comment,DateCreated")] Reviews reviews)
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,BookingId,Rating,Comment")] Reviews reviews)
         {
             if (id != reviews.ReviewId)
             {
