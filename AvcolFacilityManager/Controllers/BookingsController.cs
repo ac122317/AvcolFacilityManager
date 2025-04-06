@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AvcolFacilityManager.Areas.Identity.Data;
 using AvcolFacilityManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AvcolFacilityManager.Controllers
 {
@@ -19,6 +20,7 @@ namespace AvcolFacilityManager.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: Bookings
         public async Task<IActionResult> Index()
         {

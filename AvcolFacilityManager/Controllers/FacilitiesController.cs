@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AvcolFacilityManager.Areas.Identity.Data;
 using AvcolFacilityManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AvcolFacilityManager.Controllers
 {
@@ -19,10 +20,21 @@ namespace AvcolFacilityManager.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: Facilities
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Facility.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var facilities = from f in _context.Facility select f;
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                facilities = facilities.Where(g => g.FacilityName.Contains(searchString));
+            }
+
+
+            return View(await facilities.ToListAsync());
         }
 
         // GET: Facilities/Details/5
