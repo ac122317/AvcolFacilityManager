@@ -63,6 +63,13 @@ namespace AvcolFacilityManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,AppUserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
         {
+            // Server-side validation: StartTime must be before EndTime
+            if (bookings.StartTime >= bookings.EndTime)
+            {
+                ModelState.AddModelError("EndTime", "End Time must be after Start Time.");
+                return RedirectToAction(nameof(Index));
+            }
+
             if (!ModelState.IsValid)
             {
                 _context.Add(bookings);
@@ -102,6 +109,12 @@ namespace AvcolFacilityManager.Controllers
             if (id != bookings.BookingId)
             {
                 return NotFound();
+            }
+
+            if (bookings.StartTime >= bookings.EndTime)
+            {
+                ModelState.AddModelError("EndTime", "End Time must be after Start Time.");
+                return RedirectToAction(nameof(Index));
             }
 
             if (!ModelState.IsValid)
