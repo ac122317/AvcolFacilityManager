@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("AvcolFacilityM
 
 builder.Services.AddDbContext<AvcolFacilityManagerDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AvcolFacilityManagerDbContext>();
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<AvcolFacilityManagerDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
