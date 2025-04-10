@@ -12,7 +12,7 @@ namespace AvcolFacilityManager.Models
         [Display (Name = "Facility Name")]
         public string FacilityName { get; set; }
 
-        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z0-9 ]+$", ErrorMessage = "Facility type must only contain letters, numbers or spaces.")]
+        [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Facility type must only contain letters or numbers.")]
         [Display(Name = "Facility Type")]
         public string FacilityType { get; set; }
 
