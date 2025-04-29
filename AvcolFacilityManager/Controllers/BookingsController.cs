@@ -51,7 +51,7 @@ namespace AvcolFacilityManager.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "Id");
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName");
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName");
             return View();
         }
@@ -76,7 +76,7 @@ namespace AvcolFacilityManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "Id", bookings.AppUserId);
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName", bookings.AppUserId);
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
             return View(bookings);
         }
@@ -94,7 +94,7 @@ namespace AvcolFacilityManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "Id", bookings.AppUserId);
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName", bookings.AppUserId);
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
             return View(bookings);
         }
@@ -137,7 +137,7 @@ namespace AvcolFacilityManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "Id", bookings.AppUserId);
+            ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName", bookings.AppUserId);
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
             return View(bookings);
         }
