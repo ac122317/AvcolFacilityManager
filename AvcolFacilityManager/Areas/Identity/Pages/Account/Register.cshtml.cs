@@ -74,11 +74,11 @@ namespace AvcolFacilityManager.Areas.Identity.Pages.Account
         {
             //Custom fields, must follow multiple validation rules otherwise error message will display.
 
-            [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name must only contain letters, no special characters or spaces.")]
+            [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[A-Z][a-z\s]*$", ErrorMessage = "Last name must start with a capital letter and only contain letters, no special characters or spaces.")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
     
-            [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name must only contain letters, no special characters or spaces.")]
+            [Required, MinLength(2), MaxLength(20), RegularExpression(@"^[A-Z][a-z\s]*$", ErrorMessage = "First name must start with a capital letter and only contain letters, no special characters or spaces.")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
          

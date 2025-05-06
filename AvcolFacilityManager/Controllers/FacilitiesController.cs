@@ -20,7 +20,6 @@ namespace AvcolFacilityManager.Controllers
             _context = context;
         }
 
-        [Authorize]
         // GET: Facilities
         public async Task<IActionResult> Index(string searchString)
         {
