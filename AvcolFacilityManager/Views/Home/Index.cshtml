@@ -16,9 +16,9 @@
     <div class="row justify-content-center">
        
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card" style="border-radius: 30px; transition: transform 0.3s ease;">
                 <a asp-controller="Facilities" asp-action="Index">
-                    <img src="~/images/Home icon.jpg" class="card-img-top" alt="FacilitiesPicture">
+                    <img src="~/images/Avcol2.webp" class="card-img-top" style="border-radius: 30px; alt="FacilitiesPicture">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">Our Facilities</h5>
@@ -28,9 +28,9 @@
         </div>
         
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card" style="border-radius: 30px; transition: transform 0.3s ease;">
                 <a asp-controller="Bookings" asp-action="Index">
-                    <img src="~/images/Booking icon.jpg" class="card-img-top" alt="BookingsPicture">
+                    <img src="~/images/Booking Icon.png" class="card-img-top" style="border-radius: 30px; alt="BookingsPicture">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">Make a Booking</h5>
@@ -40,9 +40,9 @@
         </div>
 
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card" style="border-radius: 30px; transition: transform 0.3s ease;">
                 <a asp-controller="Reviews" asp-action="Index">
-                    <img src="~/images/Reviews icon.jpg" class="card-img-top" alt="ReviewsPicture">
+                    <img src="~/images/WritingIcon.png" class="card-img-top" style="border-radius: 30px; alt="ReviewsPicture">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">See Our Reviews</h5>
@@ -52,6 +52,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    .card:hover {
+        transform: scale(1.05);
+    }
+</style>
 
 
 
