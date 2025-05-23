@@ -54,6 +54,7 @@ namespace AvcolFacilityManager.Controllers
             return View(facility);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Facilities/Create
         public IActionResult Create()
         {
@@ -76,6 +77,7 @@ namespace AvcolFacilityManager.Controllers
             return View(facility);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Facilities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -127,6 +129,7 @@ namespace AvcolFacilityManager.Controllers
             return View(facility);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Facilities/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

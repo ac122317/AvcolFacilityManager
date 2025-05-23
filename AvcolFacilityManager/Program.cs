@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("AvcolFacilityM
 
 builder.Services.AddDbContext<AvcolFacilityManagerDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<AvcolFacilityManagerDbContext>();
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>().AddEntityFrameworkStores<AvcolFacilityManagerDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -37,4 +37,35 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 DbStartup.SeedData(app);
+
+//Code for adding the Admin Role.
+using (var scope = app.Services.CreateScope())
+{
+    var AvcolFacilityRoleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    if (!await AvcolFacilityRoleManager.RoleExistsAsync("Admin"))
+        await AvcolFacilityRoleManager.CreateAsync(new IdentityRole("Admin"));
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var AvcolFacilityUserManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+
+    string adminEmail = "admin@avcol.school.nz";
+    string adminPassword = "TestAdmin123!";
+
+    if (await AvcolFacilityUserManager.FindByEmailAsync(adminEmail) == null)
+    {
+        var user = new AppUser();
+        user.UserName = adminEmail;
+        user.Email = adminEmail;
+        user.FirstName = "Test";
+        user.LastName = "Admin";
+        user.Phone = "+640212345678";
+
+        await AvcolFacilityUserManager.CreateAsync(user, adminPassword);
+        await AvcolFacilityUserManager.AddToRoleAsync(user, "Admin");
+    }
+}
+
 app.Run();
