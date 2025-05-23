@@ -6,9 +6,12 @@
 
 <h1>Facilities</h1>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    </p>
+}
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
@@ -48,9 +51,12 @@
                 @Html.DisplayFor(modelItem => item.Capacity)
             </td>
             <td>
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.FacilityId">Edit</a> |
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FacilityId">Details</a> |
+                    @if (User.IsInRole("Admin"))
+                    {
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.FacilityId">Edit</a> 
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FacilityId">Details</a> 
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FacilityId">Delete</a>
+                    }
             </td>
         </tr>
 }
