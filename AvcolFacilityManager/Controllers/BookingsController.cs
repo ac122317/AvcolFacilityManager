@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AvcolFacilityManager.Areas.Identity.Data;
 using AvcolFacilityManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AvcolFacilityManager.Controllers
 {
@@ -24,8 +25,19 @@ namespace AvcolFacilityManager.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var avcolFacilityManagerDbContext = _context.Bookings.Include(b => b.AppUser).Include(b => b.Facility);
-            return View(await avcolFacilityManagerDbContext.ToListAsync());
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            IQueryable<Bookings> bookingsQuery = _context.Bookings
+                .Include(b => b.AppUser)
+                .Include(b => b.Facility);
+
+            if (!User.IsInRole("Admin"))
+            {
+                //Filter bookings for non-admin users to only see their own bookings
+                bookingsQuery = bookingsQuery.Where(b => b.AppUserId == userId);
+            }
+            var bookings = await bookingsQuery.ToListAsync();
+            return View(bookings);
         }
 
         // GET: Bookings/Details/5
@@ -63,6 +75,9 @@ namespace AvcolFacilityManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,AppUserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get current user id.
+            bookings.AppUserId = userId;  //Automatically assign current user id to the booking.
+
             // Server-side validation: StartTime must be before EndTime
             if (bookings.StartTime >= bookings.EndTime)
             {

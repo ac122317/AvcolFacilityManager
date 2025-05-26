@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AvcolFacilityManager.Areas.Identity.Data;
 using AvcolFacilityManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AvcolFacilityManager.Controllers
 {
@@ -51,7 +52,21 @@ namespace AvcolFacilityManager.Controllers
         // GET: Reviews/Create
         public IActionResult Create()
         {
-            ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingId");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get the current user's id.
+
+            //Check if the user is an admin.BI
+            if (User.IsInRole("Admin"))
+            {
+                //The admin is able to view all the bookings (in case the user asks them to leave the review for them)
+                var allBookings = _context.Bookings.ToList();
+                ViewData["BookingId"] = new SelectList(allBookings, "BookingId", "BookingId");
+            }
+            else
+            {
+                //Regular users can only see their own bookings (prevents users leaving reviews on other people's bookings).
+                var userBookings = _context.Bookings.Where(b => b.AppUserId == userId).ToList();
+                ViewData["BookingId"] = new SelectList(userBookings, "BookingId", "BookingId");
+            }
             return View();
         }
 
