@@ -20,7 +20,7 @@ namespace AvcolFacilityManager.Controllers
             _context = context;
         }
 
-        [Authorize]
+       
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
