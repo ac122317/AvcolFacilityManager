@@ -126,6 +126,13 @@ namespace AvcolFacilityManager.Controllers
                 return NotFound();
             }
 
+            //Ensures that when the user edits a booking, the id is preserved in the AppUserId field so a NULL is not returned (since the AppUserId is hidden and will have no input otherwise).
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get current user id.
+                bookings.AppUserId = userId;  //Automatically assign current user id to the booking.
+            }
+
             if (bookings.StartTime >= bookings.EndTime)
             {
                 ModelState.AddModelError("EndTime", "End Time must be after Start Time.");
