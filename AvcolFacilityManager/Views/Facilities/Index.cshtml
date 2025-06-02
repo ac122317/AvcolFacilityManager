@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AvcolFacilityManager.Models.Facility>
+﻿@using AvcolFacilityManager.Models;
+@model PaginatedList<AvcolFacilityManager.Models.Facility>
 
 @{
     ViewData["Title"] = "Index";
@@ -27,13 +28,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FacilityName)
+                Facility Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FacilityType)
+                Facility Type
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Capacity)
+                Capacity
             </th>
             <th></th>
         </tr>
@@ -62,3 +63,30 @@
 }
     </tbody>
 </table>
+
+<!--Deciding whether the previous and next buttons should be active-->
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<!--Links for the pagination navigation-->
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>
+
+<!--Displaying current page number and total pages-->
+<div>
+    Page @Model.PageIndex of @Model.TotalPages
+</div>

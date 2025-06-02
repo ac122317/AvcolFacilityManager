@@ -21,8 +21,18 @@ namespace AvcolFacilityManager.Controllers
         }
 
         // GET: Facilities
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
         {
+            ViewData["CurrentSort"] = sortOrder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["CurrentFilter"] = searchString;
 
             var facilities = from f in _context.Facility select f;
@@ -32,8 +42,8 @@ namespace AvcolFacilityManager.Controllers
                 facilities = facilities.Where(g => g.FacilityName.Contains(searchString));
             }
 
-
-            return View(await facilities.ToListAsync());
+            int pageSize = 10;
+            return View(await PaginatedList<Facility>.CreateAsync(facilities.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Facilities/Details/5
