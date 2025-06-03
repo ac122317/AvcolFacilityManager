@@ -23,8 +23,21 @@ namespace AvcolFacilityManager.Controllers
 
         [Authorize]
         // GET: Bookings
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
         {
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             IQueryable<Bookings> bookingsQuery = _context.Bookings
@@ -36,8 +49,17 @@ namespace AvcolFacilityManager.Controllers
                 //Filter bookings for non-admin users to only see their own bookings
                 bookingsQuery = bookingsQuery.Where(b => b.AppUserId == userId);
             }
-            var bookings = await bookingsQuery.ToListAsync();
-            return View(bookings);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                bookingsQuery = bookingsQuery.Where(b =>
+                    b.Facility.FacilityName.Contains(searchString) ||
+                    b.AppUser.FirstName.Contains(searchString));
+            }
+
+            int pageSize = 10;
+            
+            return View(await PaginatedList<Bookings>.CreateAsync(bookingsQuery.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Bookings/Details/5
@@ -75,9 +97,11 @@ namespace AvcolFacilityManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,AppUserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get current user id.
-            bookings.AppUserId = userId;  //Automatically assign current user id to the booking.
-
+            if (!User.IsInRole("Admin"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get current user id.
+                bookings.AppUserId = userId;  //Automatically assign current user id to the booking.
+            }
             // Server-side validation: StartTime must be before EndTime
             if (bookings.StartTime >= bookings.EndTime)
             {

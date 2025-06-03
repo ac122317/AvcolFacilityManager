@@ -54,7 +54,7 @@ namespace AvcolFacilityManager.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get the current user's id.
 
-            //Check if the user is an admin.BI
+            //Check if the user is an admin
             if (User.IsInRole("Admin"))
             {
                 //The admin is able to view all the bookings (in case the user asks them to leave the review for them)
