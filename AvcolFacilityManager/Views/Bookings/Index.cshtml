@@ -21,6 +21,14 @@
     </div>
 </form>
 
+@if (!Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        You currently have no bookings, click "Create New" to make a booking.
+    </div>
+}
+
+else{
 <table class="table">
     <thead>
         <tr>
@@ -69,12 +77,13 @@
 }
     </tbody>
 </table>
+}
 
+@if (Model.Any()){
 <!--Deciding whether the previous and next buttons should be active-->
-@{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
+
 
 <!--Links for the pagination navigation-->
 <a asp-action="Index"
@@ -96,3 +105,4 @@
 <div>
     Page @Model.PageIndex of @Model.TotalPages
 </div>
+}
