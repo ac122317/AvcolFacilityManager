@@ -27,7 +27,7 @@
 @if (!Model.Any() && !string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
 {
     <div class="alert alert-warning" role="alert">
-        No facilities matched your search.
+        No facilities named "@ViewData["CurrentFilter"]" were found.
     </div>
 }
 else
