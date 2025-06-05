@@ -24,6 +24,14 @@
     </div>
 </form>
 
+@if (!Model.Any() && !string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+{
+    <div class="alert alert-warning" role="alert">
+        No facilities matched your search.
+    </div>
+}
+else
+{
 <table class="table">
     <thead>
         <tr>
@@ -68,12 +76,13 @@
 }
     </tbody>
 </table>
+}
 
+@if (Model.Any())
+{
 <!--Deciding whether the previous and next buttons should be active-->
-@{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
 
 <!--Links for the pagination navigation-->
 <a asp-action="Index"
@@ -95,3 +104,4 @@
 <div>
     Page @Model.PageIndex of @Model.TotalPages
 </div>
+}
