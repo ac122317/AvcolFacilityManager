@@ -24,6 +24,8 @@ namespace AvcolFacilityManager.Controllers
         public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
         {
             ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -40,6 +42,17 @@ namespace AvcolFacilityManager.Controllers
             if(!String.IsNullOrEmpty(searchString))
             {
                 facilities = facilities.Where(g => g.FacilityName.Contains(searchString));
+            }
+
+            //Apply sorting based on the sortOrder parameter (in this case sorting by First Name upon clicking the hyperlink)
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    facilities = facilities.OrderByDescending(s => s.FacilityName);
+                    break;
+                default:
+                    facilities = facilities.OrderBy(s => s.FacilityName);
+                    break;
             }
 
             int pageSize = 10;
