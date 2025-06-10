@@ -9,6 +9,7 @@ using AvcolFacilityManager.Areas.Identity.Data;
 using AvcolFacilityManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.Data.SqlClient;
 
 namespace AvcolFacilityManager.Controllers
 {
@@ -23,10 +24,46 @@ namespace AvcolFacilityManager.Controllers
 
        
         // GET: Reviews
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
         {
-            var avcolFacilityManagerDbContext = _context.Reviews.Include(r => r.Booking).ThenInclude(b => b.Facility);
-            return View(await avcolFacilityManagerDbContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var reviews = _context.Reviews.Include(r => r.Booking)
+                                          .ThenInclude(b => b.Facility)
+                                          .AsQueryable();
+
+            // Filter by FacilityName if searchString is provided
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                reviews = reviews.Where(r => r.Booking.Facility.FacilityName.Contains(searchString));
+            }
+
+            // Apply sorting by FacilityName
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    reviews = reviews.OrderByDescending(r => r.Booking.Facility.FacilityName);
+                    break;
+                default:
+                    reviews = reviews.OrderBy(r => r.Booking.Facility.FacilityName);
+                    break;
+            }
+
+            int pageSize = 10;
+            return View(await PaginatedList<Reviews>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
         // GET: Reviews/Details/5

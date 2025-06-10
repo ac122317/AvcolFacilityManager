@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AvcolFacilityManager.Models.Reviews>
+﻿@model PaginatedList<AvcolFacilityManager.Models.Reviews>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,20 +13,38 @@
     </p>
 }
 
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <label>Search by Facility Name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /></label>
+            <input type="submit" value="Search" class="btn btn-outline-primary" /> |
+            <a class="btn btn-primary" asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+@if (!Model.Any() && !string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+{
+    <div class="alert alert-warning" role="alert">
+        No reviews found for facilities named "@ViewData["CurrentFilter"]".
+    </div>
+}
+else
+{
 <table class="table">
     <thead>
         <tr>
             <th>
-                Facility 
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Facility Name</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating)
+                Rating
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Comment)
+                Comment
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
+                Date Created
             </th>
             <th></th>
         </tr>
@@ -58,3 +76,32 @@
 }
     </tbody>
 </table>
+}
+@if (Model.Any())
+{
+    <!-- Pagination links -->
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+    <div>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-primary @prevDisabled">
+            Previous
+        </a>
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-primary @nextDisabled">
+            Next
+        </a>
+    </div>
+
+    <div>
+        Page @Model.PageIndex of @Model.TotalPages
+    </div>
+}
