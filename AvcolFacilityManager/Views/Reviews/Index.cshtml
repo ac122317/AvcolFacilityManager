@@ -31,46 +31,50 @@
 }
 else
 {
-<table class="table">
-    <thead>
-        <tr>
-            <th>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Facility Name</a>
-            </th>
-            <th>
-                Rating
-            </th>
-            <th>
-                Comment
-            </th>
-            <th>
-                Date Created
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Booking.Facility.FacilityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a> 
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.ReviewId">Details</a> 
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
-                    }
+                </th>
+                <th>
+                    Rating
+                </th>
+                <th>
+                    Comment
+                </th>
+                <th>
+                    Date Created
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Booking.Facility.FacilityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rating)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a> 
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.ReviewId">Details</a> 
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.ReviewId">Details</a>
+                        }
             </td>
         </tr>
 }

@@ -32,45 +32,46 @@
 }
 else
 {
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Facility Name</a>
-            </th>
-            <th>
-                Facility Type
-            </th>
-            <th>
-                Capacity
-            </th>
-            @if (User.IsInRole("Admin"))
-            {
-            <th>
-                Actions
-            </th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FacilityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FacilityType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Capacity)
-            </td>
-            <td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.FacilityId">Edit</a> 
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FacilityId">Details</a> 
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FacilityId">Delete</a>
-                    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Facility Name</a>
+                </th>
+                <th>
+                    Facility Type
+                </th>
+                <th>
+                    Capacity
+                </th>
+                <th>
+                        Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FacilityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FacilityType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacity)
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.FacilityId">Edit</a> 
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FacilityId">Details</a> 
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FacilityId">Delete</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FacilityId">Details</a>
+                        }
             </td>
         </tr>
 }
