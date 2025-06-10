@@ -26,6 +26,7 @@ namespace AvcolFacilityManager.Controllers
         public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
         {
             ViewData["CurrentSort"] = sortOrder;
+            ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
 
             if (searchString != null)
             {
@@ -57,6 +58,15 @@ namespace AvcolFacilityManager.Controllers
                     b.AppUser.FirstName.Contains(searchString));
             }
 
+            switch (sortOrder)
+            {
+                case "date_desc":
+                    bookingsQuery = bookingsQuery.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    bookingsQuery = bookingsQuery.OrderBy(s => s.Date);
+                    break;
+            }
             int pageSize = 10;
             
             return View(await PaginatedList<Bookings>.CreateAsync(bookingsQuery.AsNoTracking(), pageNumber ?? 1, pageSize));

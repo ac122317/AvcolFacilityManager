@@ -39,7 +39,8 @@ else{
                 Facility
             </th>
             <th>
-                Date
+                    <!--Link to sort the schedules by date-->
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a>
             </th>
             <th>
                 Start Time
