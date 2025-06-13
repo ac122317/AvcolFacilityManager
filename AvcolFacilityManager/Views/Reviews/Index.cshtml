@@ -1,7 +1,9 @@
 ﻿@model PaginatedList<AvcolFacilityManager.Models.Reviews>
+@using System.Security.Claims
 
 @{
     ViewData["Title"] = "Index";
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
 
 <h1>Reviews</h1>
@@ -50,6 +52,7 @@ else
             </tr>
         </thead>
         <tbody>
+
             @foreach (var item in Model) {
                 <tr>
                     <td>
@@ -69,6 +72,12 @@ else
                         {
                             <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a> 
                             <a class="btn btn-info" asp-action="Details" asp-route-id="@item.ReviewId">Details</a> 
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
+                        }
+                        else if (item.Booking.AppUserId == currentUserId)
+                        {
+                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a>
+                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.ReviewId">Details</a>
                             <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
                         }
                         else

@@ -91,19 +91,35 @@ namespace AvcolFacilityManager.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get the current user's id.
 
-            //Check if the user is an admin
+            IQueryable<Bookings> bookingsQuery;
+
             if (User.IsInRole("Admin"))
             {
-                //The admin is able to view all the bookings (in case the user asks them to leave the review for them)
-                var allBookings = _context.Bookings.ToList();
-                ViewData["BookingId"] = new SelectList(allBookings, "BookingId", "BookingId");
+                bookingsQuery = _context.Bookings.Include(b => b.Facility);
             }
             else
             {
-                //Regular users can only see their own bookings (prevents users leaving reviews on other people's bookings).
-                var userBookings = _context.Bookings.Where(b => b.AppUserId == userId).ToList();
-                ViewData["BookingId"] = new SelectList(userBookings, "BookingId", "BookingId");
+                bookingsQuery = _context.Bookings
+                                        .Where(b => b.AppUserId == userId)
+                                        .Include(b => b.Facility);
             }
+
+            var bookingsList = bookingsQuery.ToList();
+
+            // Get BookingIds that already have reviews
+            var reviewedBookingIds = _context.Reviews
+                                        .Select(r => r.BookingId)
+                                        .ToHashSet();
+
+            // Create SelectListItem with Disabled flag for bookings already reviewed
+            var bookingItems = bookingsList.Select(b => new SelectListItem
+            {
+                Value = b.BookingId.ToString(),
+                Text = $"{b.BookingId} - {b.Facility.FacilityName}",
+                Disabled = reviewedBookingIds.Contains(b.BookingId) // disable if reviewed
+            }).ToList();
+
+            ViewData["BookingId"] = bookingItems;
             return View();
         }
 
