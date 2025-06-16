@@ -1,7 +1,10 @@
 ﻿@model AvcolFacilityManager.Models.Reviews
+@using System.Security.Claims
 
 @{
     ViewData["Title"] = "Details";
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 }
 
 <h1>Details</h1>
@@ -37,7 +40,7 @@
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin") || @Model.Booking.AppUserId == currentUserId)
                         {
     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.ReviewId">Edit</a> 
                         }

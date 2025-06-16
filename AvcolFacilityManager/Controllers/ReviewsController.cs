@@ -205,6 +205,7 @@ namespace AvcolFacilityManager.Controllers
 
             var reviews = await _context.Reviews
                 .Include(r => r.Booking)
+                .ThenInclude(b => b.Facility)
                 .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (reviews == null)
             {
