@@ -150,12 +150,20 @@ namespace AvcolFacilityManager.Controllers
                 return NotFound();
             }
 
-            var reviews = await _context.Reviews.FindAsync(id);
+            
+            var reviews = await _context.Reviews
+                .Include(r => r.Booking)
+                .ThenInclude(b => b.Facility)  //Include the Facility data inside Booking to allow the facility name to be retrieved when merging the bookingid and facilityname into a readable format
+                .FirstOrDefaultAsync(m => m.ReviewId == id);
+
             if (reviews == null)
             {
                 return NotFound();
             }
-            ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingId", reviews.BookingId);
+            //Creating a readable format for the BookingId and the Facility Name
+            var bookingFacilityText = $"{reviews.Booking.BookingId} - {reviews.Booking.Facility.FacilityName}";
+
+            ViewData["BookingFacility"] = bookingFacilityText; //Passing the merged format of bookingid and facilityname to the view so it can be displayed to the user. 
             return View(reviews);
         }
 
