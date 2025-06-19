@@ -13,7 +13,8 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ReviewId" />
-            
+            <input type="hidden" asp-for="BookingId" />
+
             <div class="form-group">
                 <label asp-for="BookingId" class="control-label"></label>
                 <input type="text" value="@ViewData["BookingFacility"]" class="form-control" readonly style="background-color: #f0f0f0;" />
