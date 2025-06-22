@@ -1,109 +1,85 @@
-﻿@using AvcolFacilityManager.Models;
+﻿@using AvcolFacilityManager.Models
 @model PaginatedList<AvcolFacilityManager.Models.Bookings>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bookings";
 }
 
-<h1>Bookings</h1>
+<div class="text-center my-4">
+    <h1 class="display-4">Bookings</h1>
+    <p class="lead">Manage and view your facility bookings.</p>
+</div>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
+<div class="mb-3 text-start">
+    <a class="btn btn-success" asp-action="Create">➕ Create New Booking</a>
+</div>
 
-<form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            <label>Search by facility name or first name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" /></label>
-            <input type="submit" value="Search" class="btn btn-outline-primary" /> |
-            <a class="btn btn-primary" asp-action="Index">Back to Full List</a>
-        </p>
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by facility name or first name..." />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a class="btn btn-secondary" asp-action="Index">Reset</a>
     </div>
 </form>
 
 @if (!Model.Any())
 {
     <div class="alert alert-warning" role="alert">
-        No Bookings were Found.
+        No bookings were found.
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm custom-card-border">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.AppUser.FirstName</h5>
+                        <p class="card-text mb-1"><strong>Facility:</strong> @item.Facility.FacilityName</p>
+                        <p class="card-text mb-1"><strong>Date:</strong> @item.Date.ToString("MMMM dd, yyyy")</p>
+                        <p class="card-text mb-1"><strong>Start Time:</strong> @item.StartTime.ToString(@"hh\:mm")</p>
+                        <p class="card-text"><strong>End Time:</strong> @item.EndTime.ToString(@"hh\:mm")</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.BookingId">Details</a>
+                            <div class="btn-group">
+                                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.BookingId">Edit</a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.BookingId">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 }
 
-else{
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Facility
-            </th>
-            <th>
-                    <!--Link to sort the schedules by date-->
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Date</a>
-            </th>
-            <th>
-                Start Time
-            </th>
-            <th>
-                End Time
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppUser.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Facility.FacilityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.BookingId">Details</a> |
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.BookingId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-}
-
-@if (Model.Any()){
-<!--Deciding whether the previous and next buttons should be active-->
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-
-
-<!--Links for the pagination navigation-->
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-primary @prevDisabled">
-    Previous
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-primary @nextDisabled">
-    Next
-</a>
-
-<!--Displaying current page number and total pages-->
-<div>
-    Page @Model.PageIndex of @Model.TotalPages
-</div>
+@if (Model.Any())
+{
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Previous
+                </a>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">Page @Model.PageIndex of @Model.TotalPages</span>
+            </li>
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
 }
