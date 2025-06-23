@@ -37,7 +37,7 @@ else
         @foreach (var item in Model)
         {
             <div class="col">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 card-border">
                     <img src="~/images/TempImg.webp" class="card-img-top" alt="Facility Image" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">@item.FacilityName</h5>
@@ -91,11 +91,3 @@ else
         </ul>
     </nav>
 }
-
-<style>
-    /* Custom border for the cards */
-    .custom-card-border {
-        border: 2px solid darkgray; /* Thicker black border */
-        border-radius: 10px; /* Rounded corners for a smoother look */
-    }
-</style>
