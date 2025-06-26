@@ -21,10 +21,11 @@ namespace AvcolFacilityManager.Controllers
         }
 
         // GET: Facilities
-        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string selectedType, int? pageNumber, string currentFilter, string sortOrder)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
 
             if (searchString != null)
             {
@@ -36,6 +37,7 @@ namespace AvcolFacilityManager.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
+            ViewData["SelectedType"] = selectedType;  // Add selectedType to ViewData
 
             var facilities = from f in _context.Facility select f;
 
@@ -44,11 +46,23 @@ namespace AvcolFacilityManager.Controllers
                 facilities = facilities.Where(g => g.FacilityName.Contains(searchString));
             }
 
+            // Filter by selected facility type (if selected)
+            if (!String.IsNullOrEmpty(selectedType))
+            {
+                facilities = facilities.Where(f => f.FacilityType == selectedType);
+            }
+
             //Apply sorting based on the sortOrder parameter (in this case sorting by First Name upon clicking the hyperlink)
             switch (sortOrder)
             {
                 case "name_desc":
                     facilities = facilities.OrderByDescending(s => s.FacilityName);
+                    break;
+                case "type":
+                    facilities = facilities.OrderBy(s => s.FacilityType);
+                    break;
+                case "type_desc":
+                    facilities = facilities.OrderByDescending(s => s.FacilityType);
                     break;
                 default:
                     facilities = facilities.OrderBy(s => s.FacilityName);
