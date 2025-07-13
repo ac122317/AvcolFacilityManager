@@ -23,11 +23,13 @@ namespace AvcolFacilityManager.Controllers
 
         [Authorize]
         // GET: Bookings
-        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder) //Parsing necessary variables for sorting, filtering, and pagination.
         {
+            //Assigning values to sorting parameters
             ViewData["CurrentSort"] = sortOrder;
             ViewData["DateSortParm"] = string.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
 
+            //If the user enters something, the 1st page of results is displayed.
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -37,8 +39,10 @@ namespace AvcolFacilityManager.Controllers
                 searchString = currentFilter;
             }
 
+            //Set the current filter to the user input
             ViewData["CurrentFilter"] = searchString;
 
+            //Setting userId variable to the users first name.
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             IQueryable<Bookings> bookingsQuery = _context.Bookings
@@ -51,6 +55,7 @@ namespace AvcolFacilityManager.Controllers
                 bookingsQuery = bookingsQuery.Where(b => b.AppUserId == userId);
             }
 
+            //Applying the search filter if user inputs one (using the where and contains keywords to ensure the data matches the criteria entered).
             if (!string.IsNullOrEmpty(searchString))
             {
                 bookingsQuery = bookingsQuery.Where(b =>
@@ -58,6 +63,7 @@ namespace AvcolFacilityManager.Controllers
                     b.AppUser.FirstName.Contains(searchString));
             }
 
+            //Apply sorting based on the sortOrder parameter (these will be clickable buttons).
             switch (sortOrder)
             {
                 case "date_desc":
@@ -67,8 +73,11 @@ namespace AvcolFacilityManager.Controllers
                     bookingsQuery = bookingsQuery.OrderBy(s => s.Date);
                     break;
             }
+
+            //Sets the number of records per page
             int pageSize = 10;
-            
+
+            //Returns the view with the paginated list format
             return View(await PaginatedList<Bookings>.CreateAsync(bookingsQuery.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -112,11 +121,12 @@ namespace AvcolFacilityManager.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get current user id.
                 bookings.AppUserId = userId;  //Automatically assign current user id to the booking.
             }
-            // Server-side validation: StartTime must be before EndTime
+
+            //Server-side validation: StartTime must be before EndTime
             if (bookings.StartTime >= bookings.EndTime)
             {
                 ModelState.AddModelError("EndTime", "End Time must be after Start Time.");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); //Redirects user to index page.
             }
 
             if (!ModelState.IsValid)

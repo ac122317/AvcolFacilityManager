@@ -36,6 +36,7 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+//Calling the SeedData method for the dummy data file.
 DbStartup.SeedData(app);
 
 //Code for adding the Admin Role.

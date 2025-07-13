@@ -44,13 +44,13 @@ namespace AvcolFacilityManager.Controllers
                                           .ThenInclude(b => b.Facility)
                                           .AsQueryable();
 
-            // Filter by FacilityName if searchString is provided
+            //Filter by FacilityName if searchString is provided
             if (!String.IsNullOrEmpty(searchString))
             {
                 reviews = reviews.Where(r => r.Booking.Facility.FacilityName.Contains(searchString));
             }
 
-            // Apply sorting by FacilityName
+            //Apply sorting by FacilityName
             switch (sortOrder)
             {
                 case "name_desc":
@@ -93,12 +93,15 @@ namespace AvcolFacilityManager.Controllers
 
             IQueryable<Bookings> bookingsQuery;
 
+            //Check if the user is an admin (admins can see all bookings)
             if (User.IsInRole("Admin"))
             {
+                //Admins can view all bookings with the related facility information
                 bookingsQuery = _context.Bookings.Include(b => b.Facility);
             }
             else
             {
+                //For non-admin users, filter the bookings based on the current users id (they only see their own bookings available to review).
                 bookingsQuery = _context.Bookings
                                         .Where(b => b.AppUserId == userId)
                                         .Include(b => b.Facility);
@@ -106,19 +109,20 @@ namespace AvcolFacilityManager.Controllers
 
             var bookingsList = bookingsQuery.ToList();
 
-            // Get BookingIds that already have reviews
+            //Get BookingIds that already have reviews
             var reviewedBookingIds = _context.Reviews
                                         .Select(r => r.BookingId)
                                         .ToHashSet();
 
-            // Create SelectListItem with Disabled flag for bookings already reviewed
+            //Create a SelectListItem which will be used in the dropdown list, bookings that have already been reviewed will be disabled.
             var bookingItems = bookingsList.Select(b => new SelectListItem
             {
                 Value = b.BookingId.ToString(),
                 Text = $"{b.BookingId} - {b.Facility.FacilityName}",
-                Disabled = reviewedBookingIds.Contains(b.BookingId) // disable if reviewed
+                Disabled = reviewedBookingIds.Contains(b.BookingId) //disable if reviewed
             }).ToList();
 
+            //Pass the list of booking items to the view.
             ViewData["BookingId"] = bookingItems;
             return View();
         }

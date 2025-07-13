@@ -17,6 +17,7 @@ namespace AvcolFacilityManager.Models
         [Required, Range(1, 5)]
         public int Rating { get; set; }
 
+        //Comment field that can be null.
         [MaxLength(200)]
         public string? Comment { get; set; }
 

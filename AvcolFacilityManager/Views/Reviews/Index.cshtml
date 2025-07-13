@@ -3,7 +3,8 @@
 
 @{
     ViewData["Title"] = "Reviews";
-    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the current user's id from the claims
+
 }
 
 <div class="text-center my-4">
@@ -11,13 +12,15 @@
     <p class="lead">View and manage reviews for facilities.</p>
 </div>
 
-@if (User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated) //Check if the user is authenticated (logged in), create new button will only display if so.
 {
     <div class="mb-3 text-start">
         <a class="btn btn-success" asp-action="Create">➕ Create New Review</a>
     </div>
 }
 
+
+<!-- Search form to filter reviews by facility name -->
 <form asp-action="Index" method="get" class="mb-4">
     <div class="input-group">
         <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by facility name..." />
@@ -26,6 +29,7 @@
     </div>
 </form>
 
+<!-- Display message if no reviews are found matching the filter -->
 @if (!Model.Any() && !string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
 {
     <div class="alert alert-warning" role="alert">
@@ -34,21 +38,23 @@
 }
 else
 {
+    <!-- Display reviews in a responsive grid layout -->
     <div class="row row-cols-1 row-cols-md-4 g-4">
-        @foreach (var item in Model)
+        @foreach (var item in Model) // Loop through each review in the paginated model
         {
             <div class="col">
                 <div class="card h-100 shadow-sm card-border">
                     <div class="card-body">
-                        <h5 class="card-title">@item.Booking.Facility.FacilityName</h5>
-                        <p class="card-text"><strong>Rating:</strong> @item.Rating</p>
-                        <p class="card-text"><strong>Comment:</strong> @item.Comment</p>
+                        <h5 class="card-title">@item.Booking.Facility.FacilityName</h5> <!-- Display facility name -->
+                        <p class="card-text"><strong>Rating:</strong> @item.Rating</p> <!-- Display rating -->
+                        <p class="card-text"><strong>Comment:</strong> @item.Comment</p> <!-- Display comment -->
                         <p class="card-text"><strong>Date Created:</strong> @item.DateCreated.ToString("MMMM dd, yyyy")</p>
                     </div>
                     <div class="card-footer bg-transparent border-top-0">
                         <div class="d-flex justify-content-between">
                             <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.ReviewId">Details</a>
 
+                            <!-- Admins or the review's author can edit or delete their review -->
                             @if (User.IsInRole("Admin") || item.Booking.AppUserId == currentUserId)
                             {
                                 <div class="btn-group">
@@ -64,6 +70,7 @@ else
     </div>
 }
 
+<!-- Pagination controls for navigating between pages of reviews -->
 @if (Model.Any())
 {
     <nav class="mt-4">
@@ -76,9 +83,13 @@ else
                     Previous
                 </a>
             </li>
+
+            <!-- Display current page number and total pages -->
             <li class="page-item disabled">
                 <span class="page-link">Page @Model.PageIndex of @Model.TotalPages</span>
             </li>
+
+            <!-- Next page button, disabled if on the last page -->
             <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
                 <a class="page-link" asp-action="Index"
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
