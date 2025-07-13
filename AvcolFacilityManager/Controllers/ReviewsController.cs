@@ -61,7 +61,7 @@ namespace AvcolFacilityManager.Controllers
                     break;
             }
 
-            int pageSize = 10;
+            int pageSize = 8;
             return View(await PaginatedList<Reviews>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
 
         }

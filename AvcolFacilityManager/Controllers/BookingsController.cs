@@ -75,7 +75,7 @@ namespace AvcolFacilityManager.Controllers
             }
 
             //Sets the number of records per page
-            int pageSize = 10;
+            int pageSize = 9;
 
             //Returns the view with the paginated list format
             return View(await PaginatedList<Bookings>.CreateAsync(bookingsQuery.AsNoTracking(), pageNumber ?? 1, pageSize));

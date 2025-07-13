@@ -39,8 +39,8 @@ else
                         <h5 class="card-title">@item.AppUser.FirstName</h5>
                         <p class="card-text mb-1"><strong>Facility:</strong> @item.Facility.FacilityName</p>
                         <p class="card-text mb-1"><strong>Date:</strong> @item.Date.ToString("MMMM dd, yyyy")</p>
-                        <p class="card-text mb-1"><strong>Start Time:</strong> @item.StartTime.ToString(@"hh\:mm")</p>
-                        <p class="card-text"><strong>End Time:</strong> @item.EndTime.ToString(@"hh\:mm")</p>
+                        <p class="card-text mb-1"><strong>Start Time:</strong> @item.StartTime.ToString("hh:mm tt")</p>
+                        <p class="card-text"><strong>End Time:</strong> @item.EndTime.ToString("hh:mm tt")</p>
                     </div>
                     <div class="card-footer bg-transparent border-top-0">
                         <div class="d-flex justify-content-between">
