@@ -17,64 +17,67 @@
     </div>
 }
 
+<!--Search bar-->
 <form asp-action="Index" method="get" class="mb-4">
-    <div class="row g-2 align-items-center">
-        <div class="col-md-5 col-sm-12">
-            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by facility name..." />
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-        <div class="col-auto">
-            <a class="btn btn-secondary" asp-action="Index">Reset</a>
-        </div>
-        <div class="col-auto">
-            <!-- Sorting buttons -->
-            <div class="btn-group" role="group" aria-label="Sort buttons">
-                <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "" ? "active" : "")"
-                   asp-action="Index"
-                   asp-route-sortOrder=""
-                   asp-route-searchString="@ViewData["CurrentFilter"]">Name Asc</a>
-                <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "name_desc" ? "active" : "")"
-                   asp-action="Index"
-                   asp-route-sortOrder="name_desc"
-                   asp-route-searchString="@ViewData["CurrentFilter"]">Name Desc</a>
-                <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type" ? "active" : "")"
-                   asp-action="Index"
-                   asp-route-sortOrder="type"
-                   asp-route-searchString="@ViewData["CurrentFilter"]">Type Asc</a>
-                <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type_desc" ? "active" : "")"
-                   asp-action="Index"
-                   asp-route-sortOrder="type_desc"
-                   asp-route-searchString="@ViewData["CurrentFilter"]">Type Desc</a>
-            </div>
-        </div>
+    <div class="input-group">
+        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by facility name..." />
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a class="btn btn-secondary" asp-action="Index">Reset</a>
     </div>
 </form>
 
-<!-- Filter Buttons for Facility Types -->
-<div class="mb-4">
-    <h5>Filter by Type</h5>
-    <div class="btn-group" role="group" aria-label="Filter buttons">
-        <a class="btn btn-outline-secondary @(ViewData["SelectedType"]?.ToString() == "Arts" ? "active" : "")"
-           asp-action="Index"
-           asp-route-selectedType="Arts"
-           asp-route-searchString="@ViewData["CurrentFilter"]"
-           asp-route-sortOrder="@ViewData["CurrentSort"]">Arts</a>
-        <a class="btn btn-outline-secondary @(ViewData["SelectedType"]?.ToString() == "Sports" ? "active" : "")"
-           asp-action="Index"
-           asp-route-selectedType="Sports"
-           asp-route-searchString="@ViewData["CurrentFilter"]"
-           asp-route-sortOrder="@ViewData["CurrentSort"]">Sports</a>
-        <a class="btn btn-outline-secondary @(string.IsNullOrEmpty(ViewData["SelectedType"]?.ToString()) ? "active" : "")"
-           asp-action="Index"
-           asp-route-selectedType=""
-           asp-route-searchString="@ViewData["CurrentFilter"]"
-           asp-route-sortOrder="@ViewData["CurrentSort"]">All</a>
+<!-- Sorting and Filter Buttons Side by Side -->
+<div class="d-md-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+
+    <!-- Sorting Buttons -->
+    <div>
+        <h5 class="mb-2">Sort by</h5>
+        <div class="btn-group" role="group" aria-label="Sort buttons">
+            <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "" ? "active" : "")"
+               asp-action="Index"
+               asp-route-sortOrder=""
+               asp-route-searchString="@ViewData["CurrentFilter"]">Name Asc</a>
+            <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "name_desc" ? "active" : "")"
+               asp-action="Index"
+               asp-route-sortOrder="name_desc"
+               asp-route-searchString="@ViewData["CurrentFilter"]">Name Desc</a>
+            <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type" ? "active" : "")"
+               asp-action="Index"
+               asp-route-sortOrder="type"
+               asp-route-searchString="@ViewData["CurrentFilter"]">Type Asc</a>
+            <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type_desc" ? "active" : "")"
+               asp-action="Index"
+               asp-route-sortOrder="type_desc"
+               asp-route-searchString="@ViewData["CurrentFilter"]">Type Desc</a>
+        </div>
     </div>
+
+    <!-- Filter Buttons -->
+    <div>
+        <h5 class="mb-2">Filter by Type</h5>
+        <div class="btn-group" role="group" aria-label="Filter buttons">
+            <a class="btn btn-outline-secondary @(ViewData["SelectedType"]?.ToString() == "Arts" ? "active" : "")"
+               asp-action="Index"
+               asp-route-selectedType="Arts"
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               asp-route-sortOrder="@ViewData["CurrentSort"]">Arts</a>
+            <a class="btn btn-outline-secondary @(ViewData["SelectedType"]?.ToString() == "Sports" ? "active" : "")"
+               asp-action="Index"
+               asp-route-selectedType="Sports"
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               asp-route-sortOrder="@ViewData["CurrentSort"]">Sports</a>
+            <a class="btn btn-outline-secondary @(string.IsNullOrEmpty(ViewData["SelectedType"]?.ToString()) ? "active" : "")"
+               asp-action="Index"
+               asp-route-selectedType=""
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               asp-route-sortOrder="@ViewData["CurrentSort"]">All</a>
+        </div>
+    </div>
+
 </div>
 
 
+<!--No results message-->
 @if (!Model.Any() && !string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
 {
     <div class="alert alert-warning" role="alert">
@@ -83,6 +86,7 @@
 }
 else
 {
+    <!--Facility cards-->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var item in Model)
         {
@@ -115,6 +119,7 @@ else
     </div>
 }
 
+<!--Pagination-->
 @if (Model.Any())
 {
     <nav class="mt-4">
