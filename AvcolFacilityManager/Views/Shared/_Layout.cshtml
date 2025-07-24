@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AvcolFacilityManager.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
 <body>
     <header>
@@ -45,12 +47,30 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            <a href ="https://github.com/ac122317/AvcolFacilityManager" target="_blank">&copy; 2025 - AvcolFacilityManager - All credit reserved to Jahmayn - </a> 
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="custom-footer border-top">
+        <div class="container d-flex justify-content-between align-items-center py-3 flex-wrap">
+            <div class="d-flex align-items-center gap-4 flex-wrap">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/Home_icon.jpg" alt="Avcol Logo" style="height: 24px;" />
+                </a>
+                <a class="footer-link nav-link text-dark p-0" asp-controller="Facilities" asp-action="Index">Facilities</a>
+                <a class="footer-link nav-link text-dark p-0" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                <a class="footer-link nav-link text-dark p-0" asp-controller="Reviews" asp-action="Index">Reviews</a>
+                <a class="footer-link nav-link text-dark p-0" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <a class="footer-link nav-link text-dark p-0" href="https://github.com/ac122317/AvcolFacilityManager" target="_blank">GitHub</a>
+            </div>
+            <div class="social-icons d-flex gap-3">
+                <a href="https://facebook.com" class="text-dark" target="_blank"><i class="bi bi-facebook"></i></a>
+                <a href="https://linkedin.com" class="text-dark" target="_blank"><i class="bi bi-linkedin"></i></a>
+                <a href="https://twitter.com" class="text-dark" target="_blank"><i class="bi bi-twitter"></i></a>
+                <a href="https://instagram.com" class="text-dark" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://youtube.com" class="text-dark" target="_blank"><i class="bi bi-youtube"></i></a>
+            </div>
         </div>
     </footer>
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
