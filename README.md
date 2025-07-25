@@ -1,4 +1,4 @@
-Pe Schedule Web Application
+AvcolFacilityManager Web Application
 
 ---Explanation of the Software--- 
 This software is a digital booking system of facilities at Avondale College. The main pages on the application are the Home page, Facilities, Bookings and Reviews.
