@@ -13,11 +13,11 @@ Regular users can also create their own reviews on facilities that they have boo
 Visual Studio (2022 is advised) - https://visualstudio.microsoft.com/
 
 ---Cloning and Opening solution---
-After downloading Visual Studio 2022, click on "Clone a repository" and paste my repository link in the box provided. My link: https://github.com/ac122317/PeScheduleDB.git
+After downloading Visual Studio 2022, click on "Clone a repository" and paste my repository link in the box provided. My link: https://github.com/ac122317/AvcolFacilityManager.git
 Click clone and wait for it to load, you should be directed to the project.
 Navigate to the solution explorer (may be pinned to the right of the screen you can just click it) by clicking on "View' from the navigation pane at the top and then solution explorer 
 (or you can use the keyboard shortcut "Ctrl+Alt+L" on windows).
-Then finally in the solution explorer, double click "PeScheduleDB.sln" to open the project solution.
+Then finally in the solution explorer, double click "AvcolFacilityManager.sln" to open the project solution.
 
 ---Package Manager Console and running the application---
 From there, click on the "View" tab again and locate "Other windows", hover over it and locate "Package Manager Console", then click it.
