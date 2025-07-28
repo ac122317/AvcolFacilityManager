@@ -102,10 +102,21 @@ namespace AvcolFacilityManager.Controllers
         }
 
         // GET: Bookings/Create
-        public IActionResult Create()
+        [Authorize]
+        public IActionResult Create(int? facilityId)
         {
             ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName");
-            ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName");
+
+            //Populate the FacilityId dropdown, preselect if facilityId is passed
+            if (facilityId.HasValue)
+            {
+                ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", facilityId.Value);
+            }
+            else
+            {
+                ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName");
+            }
+
             return View();
         }
 
