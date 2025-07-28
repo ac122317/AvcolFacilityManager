@@ -48,7 +48,7 @@ button.accept-policy {
     .footer a {
         text-decoration: none;
         color: black;
-        opacity: 50%;
+        opacity: 80%;
         transition: all 1s ease 0s;
     }
 
@@ -64,8 +64,10 @@ button.accept-policy {
 }
 
 .footer-link {
-    opacity: 0.7;
+    opacity: 0.6;
+    text-decoration: none;
     transition: opacity 0.3s ease;
+    color:black;
 }
 
     .footer-link:hover {
@@ -74,7 +76,7 @@ button.accept-policy {
 
 .social-icons a {
     font-size: 1.2rem;
-    opacity: 0.6;
+    opacity: 60%;
     transition: opacity 0.3s ease;
 }
 
