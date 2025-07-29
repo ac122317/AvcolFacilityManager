@@ -1,52 +1,62 @@
 ﻿@model AvcolFacilityManager.Models.Bookings
 
 @{
-    ViewData["Title"] = "Create";
-    DateTime min = DateTime.Now;
+    ViewData["Title"] = "Create Booking";
 }
 
-<h1>Create</h1>
+<div class="container py-4">
+    <h2 class="mb-3">New Booking</h2>
+    <p class="text-muted mb-4">Fill in the details below to book a facility.</p>
 
-<h4>Bookings</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @if (User.IsInRole("Admin"))
-                    {
-            <div class="form-group">
-                <label asp-for="AppUserId" class="control-label"></label>
-                <select asp-for="AppUserId" class ="form-control" asp-items="ViewBag.AppUserId"></select>
-            </div>
-                    }
-            <div class="form-group">
-                <label asp-for="FacilityId" class="control-label">Facility</label>
-                <select asp-for="FacilityId" class ="form-control" asp-items="ViewBag.FacilityId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" type="date" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndTime" class="control-label"></label>
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-2">
-                <input type="submit" value="Create" class="btn btn-primary" /> |
-                <a class="btn btn-primary" asp-action="Index">Back to List</a>
-            </div>
-        </form>
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="AppUserId" class="form-label">User</label>
+                        <select asp-for="AppUserId" class="form-select" asp-items="ViewBag.AppUserId"></select>
+                    </div>
+                }
+
+                <div class="mb-3">
+                    <label asp-for="FacilityId" class="form-label">Facility</label>
+                    <select asp-for="FacilityId" class="form-select" asp-items="ViewBag.FacilityId"></select>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Date" class="form-label">Date</label>
+                        <input asp-for="Date" type="date" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="StartTime" class="form-label">Start Time</label>
+                        <input asp-for="StartTime" type="time" class="form-control" />
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="EndTime" class="form-label">End Time</label>
+                        <input asp-for="EndTime" type="time" class="form-control" />
+                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+                    <button type="submit" class="btn btn-success">Create Booking</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
