@@ -1,44 +1,51 @@
 ﻿@model AvcolFacilityManager.Models.Reviews
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Review";
 }
 
-<h1>Edit</h1>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-sm" style="width: 100%; max-width: 600px;">
+        <div class="card-body">
+            <h3 class="card-title mb-4 text-center">Edit Review</h3>
 
-<h4>Reviews</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ReviewId" />
-            <input type="hidden" asp-for="BookingId" />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ReviewId" />
+                <input type="hidden" asp-for="BookingId" />
 
-            <div class="form-group">
-                <label asp-for="BookingId" class="control-label"></label>
-                <input type="text" value="@ViewData["BookingFacility"]" class="form-control" readonly style="background-color: #f0f0f0;" />
-                <span asp-validation-for="BookingId" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
-                <span asp-validation-for="Comment" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-2">
-                <input type="submit" value="Save" class="btn btn-primary" /> |
-                <a class="btn btn-primary" asp-action="Index">Back to List</a>
-            </div>
-        </form>
+                <div class="form-group mb-3">
+                    <label class="form-label">Booking</label>
+                    <input type="text" value="@ViewData["BookingFacility"]" class="form-control" readonly style="background-color: #f0f0f0;" />
+                    <span asp-validation-for="BookingId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Rating" class="form-label">Rating</label>
+                    <select asp-for="Rating" class="form-select">
+                        @for (double i = 1; i <= 5; i += 1)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Comment" class="form-label">Comment</label>
+                    <textarea asp-for="Comment" class="form-control" rows="3" placeholder="Update your thoughts..."></textarea>
+                    <span asp-validation-for="Comment" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                    <input type="submit" value="Save Changes" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

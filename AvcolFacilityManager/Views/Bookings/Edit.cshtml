@@ -1,56 +1,66 @@
 ﻿@model AvcolFacilityManager.Models.Bookings
 
 @{
-    ViewData["Title"] = "Edit";
-    DateTime min = DateTime.Now;
+    ViewData["Title"] = "Edit Booking";
 }
 
-<h1>Edit</h1>
+<div class="container py-4">
+    <h2 class="mb-3">Edit Booking</h2>
+    <p class="text-muted mb-4">Update the details below to change your booking.</p>
 
-<h4>Bookings</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BookingId" />
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-            @if (User.IsInRole("Admin"))
-                    {
-            <div class="form-group">
-                <label asp-for="AppUserId" class="control-label"></label>
-                <select asp-for="AppUserId" class="form-control" asp-items="ViewBag.AppUserId"></select>
-                <span asp-validation-for="AppUserId" class="text-danger"></span>
-            </div>
-            }
-            <div class="form-group">
-                <label asp-for="FacilityId" class="control-label">Facility</label>
-                <select asp-for="FacilityId" class="form-control" asp-items="ViewBag.FacilityId"></select>
-                <span asp-validation-for="FacilityId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" type="date" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndTime" class="control-label"></label>
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-2">
-                <input type="submit" value="Save" class="btn btn-primary" /> |
-                <a class="btn btn-primary" asp-action="Index">Back to List</a>
-            </div>
-        </form>
+                <input type="hidden" asp-for="BookingId" />
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="mb-3">
+                        <label asp-for="AppUserId" class="form-label">User</label>
+                        <select asp-for="AppUserId" class="form-select" asp-items="ViewBag.AppUserId"></select>
+                        <span asp-validation-for="AppUserId" class="text-danger"></span>
+                    </div>
+                }
+
+                <div class="mb-3">
+                    <label asp-for="FacilityId" class="form-label">Facility</label>
+                    <select asp-for="FacilityId" class="form-select" asp-items="ViewBag.FacilityId"></select>
+                    <span asp-validation-for="FacilityId" class="text-danger"></span>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Date" class="form-label">Date</label>
+                        <input asp-for="Date" type="date" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="StartTime" class="form-label">Start Time</label>
+                        <input asp-for="StartTime" type="time" class="form-control" />
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="EndTime" class="form-label">End Time</label>
+                        <input asp-for="EndTime" type="time" class="form-control" />
+                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
