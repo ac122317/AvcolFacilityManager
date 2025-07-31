@@ -36,19 +36,19 @@
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder=""
-               asp-route-searchString="@ViewData["CurrentFilter"]">Name Asc</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]">Name Asc ↑</a>
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "name_desc" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder="name_desc"
-               asp-route-searchString="@ViewData["CurrentFilter"]">Name Desc</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]">Name Desc ↓</a>
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder="type"
-               asp-route-searchString="@ViewData["CurrentFilter"]">Type Asc</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]">Type Asc ↑</a>
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type_desc" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder="type_desc"
-               asp-route-searchString="@ViewData["CurrentFilter"]">Type Desc</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]">Type Desc ↓</a>
         </div>
     </div>
 
