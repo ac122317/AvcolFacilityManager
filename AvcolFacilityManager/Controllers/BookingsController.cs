@@ -144,7 +144,8 @@ namespace AvcolFacilityManager.Controllers
             {
                 _context.Add(bookings);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Redirect to confirmation page after successful creation
+                return RedirectToAction(nameof(Confirmation), new { id = bookings.BookingId });
             }
             ViewData["AppUserId"] = new SelectList(_context.AppUser, "Id", "FirstName", bookings.AppUserId);
             ViewData["FacilityId"] = new SelectList(_context.Facility, "FacilityId", "FacilityName", bookings.FacilityId);
@@ -258,5 +259,28 @@ namespace AvcolFacilityManager.Controllers
         {
             return _context.Bookings.Any(e => e.BookingId == id);
         }
+
+        // GET: Bookings/Confirmation/5
+        public async Task<IActionResult> Confirmation(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var booking = await _context.Bookings
+                .Include(b => b.AppUser)
+                .Include(b => b.Facility)
+                .FirstOrDefaultAsync(m => m.BookingId == id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return View(booking);
+        }
+
     }
 }
+

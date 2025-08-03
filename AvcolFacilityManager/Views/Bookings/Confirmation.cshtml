@@ -1,0 +1,24 @@
+﻿@model AvcolFacilityManager.Models.Bookings
+
+@{
+    ViewData["Title"] = "Booking Confirmation";
+}
+
+<div class="container py-4">
+    <h2 class="mb-3 text-success">Booking Confirmed!</h2>
+    <p>Thank you, <strong>@Model.AppUser.FirstName</strong>, your booking has been created successfully.</p>
+
+    <div class="card shadow-sm border border-2 rounded">
+        <div class="card-body">
+            <p><strong>Facility:</strong> @Model.Facility.FacilityName</p>
+            <p><strong>Date:</strong> @Model.Date.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Start Time:</strong> @Model.StartTime.ToString("hh:mm tt")</p>
+            <p><strong>End Time:</strong> @Model.EndTime.ToString("hh:mm tt")</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-primary">Back to Bookings</a>
+        <a asp-action="Details" asp-route-id="@Model.BookingId" class="btn btn-info">View Booking Details</a>
+    </div>
+</div>
