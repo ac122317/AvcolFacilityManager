@@ -155,7 +155,7 @@ else
                    asp-route-pageNumber="@(Model.PageIndex - 1)"
                    asp-route-currentFilter="@ViewData["CurrentFilter"]"
                    asp-route-selectedType="@ViewData["SelectedType"]">
-                    Previous
+                    <i class="bi bi-arrow-left"></i> Previous
                 </a>
             </li>
             <li class="page-item disabled">
@@ -167,7 +167,7 @@ else
                    asp-route-pageNumber="@(Model.PageIndex + 1)"
                    asp-route-currentFilter="@ViewData["CurrentFilter"]"
                    asp-route-selectedType="@ViewData["SelectedType"]">
-                    Next
+                    Next <i class="bi bi-arrow-right"></i>
                 </a>
             </li>
         </ul>

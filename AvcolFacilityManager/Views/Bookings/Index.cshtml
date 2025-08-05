@@ -73,7 +73,7 @@ else
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
                    asp-route-pageNumber="@(Model.PageIndex - 1)"
                    asp-route-currentFilter="@ViewData["CurrentFilter"]">
-                    Previous
+                    <i class="bi bi-arrow-left"></i> Previous
                 </a>
             </li>
             <li class="page-item disabled">
@@ -84,7 +84,7 @@ else
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
                    asp-route-pageNumber="@(Model.PageIndex + 1)"
                    asp-route-currentFilter="@ViewData["CurrentFilter"]">
-                    Next
+                    Next <i class="bi bi-arrow-right"></i>
                 </a>
             </li>
         </ul>
