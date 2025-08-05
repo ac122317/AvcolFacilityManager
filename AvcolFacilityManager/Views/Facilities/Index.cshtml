@@ -20,6 +20,11 @@
 <!--Search bar-->
 <form asp-action="Index" method="get" class="mb-4">
     <div class="input-group">
+
+        <!--Maintains current filter and sort when searching-->
+        <input type="hidden" name="selectedType" value="@ViewData["SelectedType"]" />
+        <input type="hidden" name="sortOrder" value="@ViewData["CurrentSort"]" />
+
         <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by facility name..." />
         <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
         <a class="btn btn-secondary" asp-action="Index">Reset</a>
@@ -36,19 +41,31 @@
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder=""
-               asp-route-searchString="@ViewData["CurrentFilter"]">Name Asc ↑</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               asp-route-selectedType="@ViewData["SelectedType"]">
+               Name Asc ↑
+            </a>
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "name_desc" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder="name_desc"
-               asp-route-searchString="@ViewData["CurrentFilter"]">Name Desc ↓</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               asp-route-selectedType="@ViewData["SelectedType"]">
+                Name Desc ↓
+            </a>
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder="type"
-               asp-route-searchString="@ViewData["CurrentFilter"]">Type Asc ↑</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               asp-route-selectedType="@ViewData["SelectedType"]">
+               Type Asc ↑
+           </a>
             <a class="btn btn-outline-primary @(ViewData["CurrentSort"]?.ToString() == "type_desc" ? "active" : "")"
                asp-action="Index"
                asp-route-sortOrder="type_desc"
-               asp-route-searchString="@ViewData["CurrentFilter"]">Type Desc ↓</a>
+               asp-route-searchString="@ViewData["CurrentFilter"]"
+               asp-route-selectedType="@ViewData["SelectedType"]">
+               Type Desc ↓
+           </a>
         </div>
     </div>
 
@@ -136,7 +153,8 @@ else
                 <a class="page-link" asp-action="Index"
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
                    asp-route-pageNumber="@(Model.PageIndex - 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   asp-route-selectedType="@ViewData["SelectedType"]">
                     Previous
                 </a>
             </li>
@@ -147,7 +165,8 @@ else
                 <a class="page-link" asp-action="Index"
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
                    asp-route-pageNumber="@(Model.PageIndex + 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   asp-route-selectedType="@ViewData["SelectedType"]">
                     Next
                 </a>
             </li>
