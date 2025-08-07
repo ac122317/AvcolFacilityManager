@@ -13,12 +13,12 @@ namespace AvcolFacilityManager.Models
         [ForeignKey("AppUser"), Required]
         [Display(Name = "App User")]
         public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
+        public AppUser? AppUser { get; set; }
 
         //This section represents a facility as a foreign key for this specific table, the facility must have a value as per the required validation attribute.
         [ForeignKey("Facility"), Required]
         public int FacilityId { get; set; }
-        public Facility Facility { get; set; }
+        public Facility? Facility { get; set; }
 
         //Date field is allocated the DataType annotation to allow only the date to be selected.
         [Required, DataType(DataType.Date)]

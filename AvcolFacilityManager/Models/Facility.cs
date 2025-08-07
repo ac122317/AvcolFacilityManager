@@ -23,6 +23,6 @@ namespace AvcolFacilityManager.Models
         public int Capacity { get; set; }
 
         //List representing a one to many relationship - one facility can be booked many times.
-        public List<Bookings> Bookings { get; set; }
+        public List<Bookings>? Bookings { get; set; }
     }
 }

@@ -137,10 +137,10 @@ namespace AvcolFacilityManager.Controllers
             if (bookings.StartTime >= bookings.EndTime)
             {
                 ModelState.AddModelError("EndTime", "End Time must be after Start Time.");
-                return RedirectToAction(nameof(Index)); //Redirects user to index page.
+              
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(bookings);
                 await _context.SaveChangesAsync();
@@ -192,10 +192,10 @@ namespace AvcolFacilityManager.Controllers
             if (bookings.StartTime >= bookings.EndTime)
             {
                 ModelState.AddModelError("EndTime", "End Time must be after Start Time.");
-                return RedirectToAction(nameof(Index));
+                
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {

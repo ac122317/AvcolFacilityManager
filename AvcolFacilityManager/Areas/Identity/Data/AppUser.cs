@@ -26,6 +26,6 @@ public class AppUser : IdentityUser
     public string Phone { get; set; }
 
     //List representing a one to many relationship - one user can make many bookings.
-    public List<Bookings> Bookings { get; set; }
+    public List<Bookings>? Bookings { get; set; }
 }
 
