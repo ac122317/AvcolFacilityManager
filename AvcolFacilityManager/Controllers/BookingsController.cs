@@ -127,18 +127,32 @@ namespace AvcolFacilityManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,AppUserId,FacilityId,Date,StartTime,EndTime")] Bookings bookings)
         {
+            
             if (!User.IsInRole("Admin"))
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  //Get current user id.
                 bookings.AppUserId = userId;  //Automatically assign current user id to the booking.
             }
-
+            
             //Server-side validation: StartTime must be before EndTime
             if (bookings.StartTime >= bookings.EndTime)
             {
                 ModelState.AddModelError("EndTime", "End Time must be after Start Time.");
               
             }
+
+            // Check for overlapping bookings
+            bool isOverlapping = await _context.Bookings.AnyAsync(b =>
+                b.FacilityId == bookings.FacilityId &&
+                b.Date == bookings.Date &&
+                ((bookings.StartTime < b.EndTime) && (bookings.EndTime > b.StartTime))
+            );
+
+            if (isOverlapping)
+            {
+                ModelState.AddModelError(string.Empty, "This booking overlaps with an existing one.");
+            }
+
 
             if (ModelState.IsValid)
             {
@@ -281,6 +295,20 @@ namespace AvcolFacilityManager.Controllers
             return View(booking);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetBookedTimeSlots(int facilityId, DateTime date)
+        {
+            var bookings = await _context.Bookings
+                .Where(b => b.FacilityId == facilityId && b.Date == date)
+                .Select(b => new
+                {
+                    start = b.StartTime.ToString(@"HH:mm"), // Format as HH:MM
+                    end = b.EndTime.ToString(@"HH:mm")      // Format as HH:MM
+                })
+                .ToListAsync();
+
+            return Json(bookings);
+        }
     }
 }
 
