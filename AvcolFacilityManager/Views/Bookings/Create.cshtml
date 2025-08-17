@@ -1,4 +1,5 @@
-﻿@model AvcolFacilityManager.Models.Bookings
+﻿@using System.Security.Claims
+@model AvcolFacilityManager.Models.Bookings
 
 @{
     ViewData["Title"] = "Create Booking";
@@ -45,6 +46,11 @@
                         <span asp-validation-for="EndTime" class="text-danger"></span>
                     </div>
                 </div>
+
+                @if (!User.IsInRole("Admin"))
+                {
+                    <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier)" />
+                }
 
                 <div class="mt-4 d-flex justify-content-between">
                     <a asp-action="Index" class="btn btn-primary">Back to List</a>
