@@ -105,7 +105,7 @@ namespace AvcolFacilityManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FacilityId,FacilityName,FacilityType,Capacity")] Facility facility)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(facility);
                 await _context.SaveChangesAsync();
@@ -143,7 +143,7 @@ namespace AvcolFacilityManager.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
