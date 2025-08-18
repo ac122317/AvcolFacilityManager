@@ -14,9 +14,20 @@
 
 @if (User.Identity.IsAuthenticated) //Check if the user is authenticated (logged in), create new button will only display if so.
 {
-    <div class="mb-3 text-start">
-        <a class="btn btn-success" asp-action="Create"><i class="bi bi-plus-circle fs-5"></i> Create New Review</a>
-    </div>
+    if (ViewData["HasAvailableBookingsToReview"] != null && (bool)ViewData["HasAvailableBookingsToReview"])
+    {
+        <div class="mb-3 text-start">
+            <a class="btn btn-success" asp-action="Create">
+                <i class="bi bi-plus-circle fs-5"></i> Create New Review
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            You currently have no bookings available to review.
+        </div>
+    }
 }
 
 

@@ -40,6 +40,8 @@ namespace AvcolFacilityManager.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var reviews = _context.Reviews.Include(r => r.Booking)
                                           .ThenInclude(b => b.Facility)
                                           .AsQueryable();
@@ -60,6 +62,25 @@ namespace AvcolFacilityManager.Controllers
                     reviews = reviews.OrderBy(r => r.Booking.Facility.FacilityName);
                     break;
             }
+
+            // Check if the user has any bookings that haven't been reviewed
+            bool hasAvailableBookingsToReview = false;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userBookings = _context.Bookings
+                                           .Where(b => b.AppUserId == currentUserId)
+                                           .Select(b => b.BookingId)
+                                           .ToList();
+
+                var reviewedBookingIds = _context.Reviews
+                                                 .Where(r => r.Booking.AppUserId == currentUserId)
+                                                 .Select(r => r.BookingId)
+                                                 .ToHashSet();
+
+                hasAvailableBookingsToReview = userBookings.Any(bId => !reviewedBookingIds.Contains(bId));
+            }
+
+            ViewData["HasAvailableBookingsToReview"] = hasAvailableBookingsToReview;
 
             int pageSize = 8;
             return View(await PaginatedList<Reviews>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
