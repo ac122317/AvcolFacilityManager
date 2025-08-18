@@ -18,9 +18,9 @@
 
                 @if (User.IsInRole("Admin"))
                 {
-                    <div class="mb-3">
+                    <div class="mb-3"> 
                         <label asp-for="AppUserId" class="form-label">User</label>
-                        <select asp-for="AppUserId" class="form-select" asp-items="ViewBag.AppUserId"></select>
+                        <select asp-for="AppUserId" class="form-select" asp-items="ViewBag.AppUserId" disabled="disabled"></select>
                         <span asp-validation-for="AppUserId" class="text-danger"></span>
                     </div>
                 }
