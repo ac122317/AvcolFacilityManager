@@ -40,6 +40,31 @@
     </div>
 </form>
 
+<!-- Only display the filter buttons if the user has at least one review -->
+@if (ViewData["UserHasReviews"] != null && (bool)ViewData["UserHasReviews"])
+{
+    <!-- Filter by Author Button -->
+    <div class="d-md-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <!-- Filter by Current User Reviews -->
+        <div>
+            <h5 class="mb-2">Filter by Your Reviews</h5>
+            <div class="btn-group" role="group" aria-label="Filter buttons">
+                <a class="btn btn-outline-secondary @(ViewData["CurrentUserFilter"]?.ToString() == "true" ? "active" : "")"
+                   asp-action="Index"
+                   asp-route-searchString="@ViewData["CurrentFilter"]"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-userFilter="true">Your Reviews</a>
+
+                <a class="btn btn-outline-secondary @(string.IsNullOrEmpty(ViewData["CurrentUserFilter"]?.ToString()) ? "active" : "")"
+                   asp-action="Index"
+                   asp-route-searchString="@ViewData["CurrentFilter"]"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-userFilter="">All Reviews</a>
+            </div>
+        </div>
+    </div>
+}
+
 <!-- Display message if no reviews are found matching the filter -->
 @if (!Model.Any() && !string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
 {

@@ -24,7 +24,7 @@ namespace AvcolFacilityManager.Controllers
 
        
         // GET: Reviews
-        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder, string userFilter)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -39,6 +39,7 @@ namespace AvcolFacilityManager.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentUserFilter"] = userFilter;
 
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -46,10 +47,22 @@ namespace AvcolFacilityManager.Controllers
                                           .ThenInclude(b => b.Facility)
                                           .AsQueryable();
 
+            // Check if the current user has any reviews
+            var userHasReviews = await _context.Reviews
+                                                .AnyAsync(r => r.Booking.AppUserId == currentUserId);
+
+            ViewData["UserHasReviews"] = userHasReviews; // Pass the boolean to the view
+
             //Filter by FacilityName if searchString is provided
             if (!String.IsNullOrEmpty(searchString))
             {
                 reviews = reviews.Where(r => r.Booking.Facility.FacilityName.Contains(searchString));
+            }
+
+            // Filter by the current user if the userFilter is set to "true"
+            if (userFilter == "true")
+            {
+                reviews = reviews.Where(r => r.Booking.AppUserId == currentUserId);
             }
 
             //Apply sorting by FacilityName
