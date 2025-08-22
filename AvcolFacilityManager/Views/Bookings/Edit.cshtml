@@ -21,6 +21,7 @@
                     <div class="mb-3"> 
                         <label asp-for="AppUserId" class="form-label">User</label>
                         <select asp-for="AppUserId" class="form-select" asp-items="ViewBag.AppUserId" disabled="disabled"></select>
+                        <input type="hidden" asp-for="AppUserId" />
                         <span asp-validation-for="AppUserId" class="text-danger"></span>
                     </div>
                 }
