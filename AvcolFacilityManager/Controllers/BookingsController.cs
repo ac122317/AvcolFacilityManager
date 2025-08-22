@@ -209,6 +209,19 @@ namespace AvcolFacilityManager.Controllers
                 
             }
 
+            // Check for overlapping bookings excluding the current booking itself
+            bool isOverlapping = await _context.Bookings.AnyAsync(b =>
+                b.FacilityId == bookings.FacilityId &&
+                b.Date == bookings.Date &&
+                b.BookingId != bookings.BookingId &&  // Exclude current booking from overlap check
+                ((bookings.StartTime < b.EndTime) && (bookings.EndTime > b.StartTime))
+            );
+
+            if (isOverlapping)
+            {
+                ModelState.AddModelError(string.Empty, "This booking overlaps with an existing one.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
