@@ -30,16 +30,6 @@ html, body {
     text-decoration-thickness: 3px;
 }
 
-.login-link {
-    color: black;
-    opacity: 75%;
-}
-
-.login-link:hover {
-    opacity: 100%;
-    color:black;
-}
-
 .card-border {
     border: 3px solid darkgray !important; 
     border-radius: 10px !important; 
