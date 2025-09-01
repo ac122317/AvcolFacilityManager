@@ -307,21 +307,6 @@ namespace AvcolFacilityManager.Controllers
 
             return View(booking);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetBookedTimeSlots(int facilityId, DateTime date)
-        {
-            var bookings = await _context.Bookings
-                .Where(b => b.FacilityId == facilityId && b.Date == date)
-                .Select(b => new
-                {
-                    start = b.StartTime.ToString(@"HH:mm"), // Format as HH:MM
-                    end = b.EndTime.ToString(@"HH:mm")      // Format as HH:MM
-                })
-                .ToListAsync();
-
-            return Json(bookings);
-        }
     }
 }
 
