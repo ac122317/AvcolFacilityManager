@@ -16,7 +16,7 @@ namespace AvcolFacilityManager.Models
         public AppUser? AppUser { get; set; }
 
         //This section represents a facility as a foreign key for this specific table, the facility must have a value as per the required validation attribute.
-        [ForeignKey("Facility"), Required]
+        [ForeignKey("Facility"), Required(ErrorMessage ="Select your Facility.")]
         public int FacilityId { get; set; }
         public Facility? Facility { get; set; }
 

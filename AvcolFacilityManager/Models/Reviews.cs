@@ -10,11 +10,11 @@ namespace AvcolFacilityManager.Models
 
         public int ReviewId { get; set; }
 
-        [ForeignKey("Bookings"), Required]
+        [ForeignKey("Bookings"), Required(ErrorMessage = "Select your Booking.")]
         public int BookingId { get; set; }
         public Bookings Booking { get; set; }
 
-        [Required, Range(1, 5)]
+        [Required(ErrorMessage = "Select your rating."), Range(1, 5)]
         public int Rating { get; set; }
 
         //Comment field that can be null.

@@ -24,7 +24,10 @@
 
                 <div class="mb-3">
                     <label asp-for="FacilityId" class="form-label">Facility</label>
-                    <select asp-for="FacilityId" class="form-select" asp-items="ViewBag.FacilityId"></select>
+                    <select asp-for="FacilityId" class="form-select" asp-items="ViewBag.FacilityId">
+                        <option value="" selected disabled>--Select Facility--</option>
+                    </select>
+                    <span asp-validation-for="FacilityId" class="text-danger"></span>
                 </div>
 
                 <div class="row g-3">
