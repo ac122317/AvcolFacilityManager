@@ -30,9 +30,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Facilities" asp-action="Index">Facilities</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Reviews" asp-action="Index">Reviews</a>
                         </li>
@@ -54,7 +57,10 @@
                     <img src="~/images/Home_icon.jpg" alt="Avcol Logo" style="height: 24px;" />
                 </a>
                 <a href="/Facilities" class="footer-link p-0">Facilities</a>
-                <a href="/Bookings" class="footer-link p-0">Bookings</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/Bookings" class="footer-link p-0">Bookings</a>
+                }
                 <a href="/Reviews" class="footer-link p-0">Reviews</a>
                 <a href="/Home/Privacy" class="footer-link p-0">Privacy</a>
                 <a class="footer-link text-dark p-0" href="https://github.com/ac122317/AvcolFacilityManager" target="_blank">GitHub</a>
