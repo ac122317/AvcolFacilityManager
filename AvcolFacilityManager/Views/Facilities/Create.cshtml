@@ -4,32 +4,47 @@
     ViewData["Title"] = "Create Facility";
 }
 
+<!--Main container for the create facility form-->
 <div class="container mt-5 d-flex justify-content-center">
+
+    <!--Card container to improve the structure of the form, with appropriate styling-->
     <div class="card shadow-sm border border-2 rounded" style="width: 100%; max-width: 600px;">
         <div class="card-body">
+            
+            <!--Form title-->
             <h3 class="card-title mb-4 text-center">Add New Facility</h3>
 
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
+                <!--FacilityName input field-->
                 <div class="form-group mb-3">
                     <label asp-for="FacilityName" class="form-label">Facility Name</label>
                     <input asp-for="FacilityName" class="form-control" placeholder="e.g. Gymnasium" />
+
+                    <!--Validation message for FacilityName field-->
                     <span asp-validation-for="FacilityName" class="text-danger"></span>
                 </div>
 
+                <!--FacilityType input field-->
                 <div class="form-group mb-3">
                     <label asp-for="FacilityType" class="form-label">Facility Type</label>
                     <input asp-for="FacilityType" class="form-control" placeholder="e.g. Sports" />
+
+                    <!--Validation message for FacilityType field-->
                     <span asp-validation-for="FacilityType" class="text-danger"></span>
                 </div>
 
+                <!--Capacity input field-->
                 <div class="form-group mb-4">
                     <label asp-for="Capacity" class="form-label">Capacity</label>
                     <input asp-for="Capacity" class="form-control" placeholder="e.g. 50" />
+
+                    <!--Validation message for capacity-->
                     <span asp-validation-for="Capacity" class="text-danger"></span>
                 </div>
 
+                <!--Action buttons for the form, back or submit-->
                 <div class="d-flex justify-content-between">
                     <a asp-action="Index" class="btn btn-primary">Back to List</a>
                     <input type="submit" value="Create Facility" class="btn btn-success" />

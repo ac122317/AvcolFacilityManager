@@ -4,22 +4,32 @@
     ViewData["Title"] = "Create Review";
 }
 
+<!--Main container for the review create form-->
 <div class="container mt-5 d-flex justify-content-center">
+
+    <!--Card container to improve the structure of the form, with appropriate styling-->
     <div class="card shadow-sm border border-2 rounded" style="width: 100%; max-width: 600px;">
         <div class="card-body">
+
+            <!-- Form title -->
             <h3 class="card-title mb-4 text-center">Leave a Review</h3>
 
+            <!-- Validation message -->
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                <!-- Booking selection dropdown -->
                 <div class="form-group mb-3">
                     <label asp-for="BookingId" class="form-label">Booking</label>
                     <select asp-for="BookingId" class="form-select" asp-items="ViewBag.BookingId"></select>
                 </div>
 
+                <!-- Rating selection dropdown with options from 1 to 5 -->
                 <div class="form-group mb-3">
                     <label asp-for="Rating" class="form-label">Rating</label>
                     <select asp-for="Rating" class="form-select">
+
+                        <!-- Generate rating options from 1 to 5 -->
                         @for (double i = 1; i <= 5; i += 1)
                         {
                             <option value="@i">@i</option>
@@ -28,12 +38,15 @@
                     <span asp-validation-for="Rating" class="text-danger"></span>
                 </div>
 
+
+                <!-- Comment textarea for detailed feedback -->
                 <div class="form-group mb-3">
                     <label asp-for="Comment" class="form-label">Comment</label>
                     <textarea asp-for="Comment" class="form-control" rows="3" placeholder="Write your thoughts..."></textarea>
                     <span asp-validation-for="Comment" class="text-danger"></span>
                 </div>
 
+                <!-- Action buttons for the form, back or submit -->
                 <div class="d-flex justify-content-between">
                     <a asp-action="Index" class="btn btn-primary">Back to List</a>
                     <input type="submit" value="Submit Review" class="btn btn-success" />
