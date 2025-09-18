@@ -2,18 +2,22 @@
 @model PaginatedList<AvcolFacilityManager.Models.Bookings>
 
 @{
+    // Page title used in the layout
     ViewData["Title"] = "Bookings";
 }
 
+<!-- Page header -->
 <div class="text-center my-4">
     <h1 class="display-4">Bookings</h1>
     <p class="lead">Manage and view your facility bookings.</p>
 </div>
 
+<!-- Button to create a new booking -->
     <div class="mb-3 text-start">
         <a class="btn btn-success" asp-action="Create"><i class="bi bi-plus-circle fs-5"></i> Create New Booking</a>
     </div>
 
+<!-- Search form for filtering bookings -->
 <form asp-action="Index" method="get" class="mb-4">
     <div class="input-group">
         <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by facility name or first name..." />
@@ -22,6 +26,7 @@
     </div>
 </form>
 
+<!-- If there are no bookings, show an alert -->
 @if (!Model.Any())
 {
     <div class="alert alert-warning" role="alert">
@@ -30,6 +35,7 @@
 }
 else
 {
+    <!-- If there are bookings, display them as cards in a responsive grid layout-->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var item in Model)
         {
@@ -42,6 +48,8 @@ else
                         <p class="card-text mb-1"><strong>Start Time:</strong> @item.StartTime.ToString("hh:mm tt")</p>
                         <p class="card-text"><strong>End Time:</strong> @item.EndTime.ToString("hh:mm tt")</p>
                     </div>
+
+                    <!-- Action buttons: Details, Edit, Delete -->
                     <div class="card-footer bg-transparent border-top-0">
                             <div class="d-flex flex-wrap justify-content-end gap-2">
                                 <a class="btn btn-info btn-sm d-flex align-items-center gap-1"
@@ -64,10 +72,13 @@ else
     </div>
 }
 
+<!-- Pagination controls (only shown if there are bookings) -->
 @if (Model.Any())
 {
     <nav class="mt-4">
         <ul class="pagination justify-content-center">
+
+            <!-- Previous page button (disabled if on first page) -->
             <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
                 <a class="page-link" asp-action="Index"
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
@@ -76,9 +87,13 @@ else
                     <i class="bi bi-arrow-left"></i> Previous
                 </a>
             </li>
+
+            <!-- Current page indicator -->
             <li class="page-item disabled">
                 <span class="page-link">Page @Model.PageIndex of @Model.TotalPages</span>
             </li>
+
+            <!-- Next page button (disabled if on last page) -->
             <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
                 <a class="page-link" asp-action="Index"
                    asp-route-sortOrder="@ViewData["CurrentSort"]"
